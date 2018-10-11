@@ -13,20 +13,23 @@ from keras.models import load_model, Model
 
 # project imports
 sys.path.append('../ext/neuron')
+sys.path.append('../ext/medipy-lib')
+sys.path.append('../ext/pynd-lib')
+sys.path.append('../ext/pytools-lib')
 import datagenerators
 import networks
 import losses
-import generators
+import neuron.generators as genera
 
 
 vol_size = (160, 192, 224)
 
-base_data_dir = '/home/ys895/resize256/resize256-crop_x32/'
-train_vol_names = glob.glob(base_data_dir + 'train/vols/*.npz')
-train_seg_names = glob.glob(base_data_dir + 'train/asegs/*.npz')
+#base_data_dir = '/home/ys895/resize256/resize256-crop_x32/'
+#train_vol_names = glob.glob(base_data_dir + 'train/vols/*.npz')
+#train_seg_names = glob.glob(base_data_dir + 'train/asegs/*.npz')
 
 vol_data_dir='/home/ys895/resize256/resize256-crop_x32/train/vols/'
 seg_data_dir='/home/ys895/resize256/resize256-crop_x32/train/asegs/'
-
+=genera.vol_seg(vol_data_dir,seg_data_dir)
 
 random.shuffle(train_vol_names)
