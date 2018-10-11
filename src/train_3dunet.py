@@ -30,6 +30,6 @@ vol_size = (160, 192, 224)
 
 vol_data_dir='/home/ys895/resize256/resize256-crop_x32/train/vols/'
 seg_data_dir='/home/ys895/resize256/resize256-crop_x32/train/asegs/'
-=genera.vol_seg(vol_data_dir,seg_data_dir)
+a,b=genera.vol_seg(vol_data_dir,seg_data_dir)
 
 random.shuffle(train_vol_names)
