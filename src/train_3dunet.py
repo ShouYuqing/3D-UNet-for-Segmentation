@@ -17,7 +17,7 @@ sys.path.append('../ext/medipy-lib')
 sys.path.append('../ext/pynd-lib')
 sys.path.append('../ext/pytools-lib')
 import datagenerators
-import networks
+#import networks
 import losses
 import neuron.generators as genera
 
@@ -32,4 +32,4 @@ vol_data_dir='/home/ys895/resize256/resize256-crop_x32/train/vols/'
 seg_data_dir='/home/ys895/resize256/resize256-crop_x32/train/asegs/'
 a,b=genera.vol_seg(vol_data_dir,seg_data_dir)
 
-random.shuffle(train_vol_names)
+#random.shuffle(train_vol_names)
