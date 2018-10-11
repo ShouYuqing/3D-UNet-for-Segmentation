@@ -1,5 +1,3 @@
-sys.path.append('../ext/neuron')
-
 import os
 import glob
 import sys
@@ -14,9 +12,11 @@ from keras.optimizers import Adam
 from keras.models import load_model, Model
 
 # project imports
+sys.path.append('../ext/neuron')
 import datagenerators
 import networks
 import losses
+import generators
 
 
 vol_size = (160, 192, 224)
