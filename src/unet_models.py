@@ -21,7 +21,7 @@ import neuron.utils as nrn_utils
 # other vm functions
 import losses
 
-def myunet(enc_nf, dec_nf, full_size=True, input):
+def myunet(enc_nf, dec_nf, input, full_size=True):
     # inputs
     #src = Input(shape=vol_size + (1,))
     #tgt = Input(shape=vol_size + (1,))
