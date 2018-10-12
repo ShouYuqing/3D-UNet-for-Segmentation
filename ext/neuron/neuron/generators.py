@@ -341,6 +341,7 @@ def vol_seg(volpath,
             seg_binary=False,
             vol_subname='norm',  # subname of volume
             seg_subname='aseg',  # subname of segmentation
+            iteration_time=10,
             **kwargs):
     """
     generator with (volume, segmentation)
@@ -368,7 +369,8 @@ def vol_seg(volpath,
                   expected_files=vol_files, name=name+' seg', binary=seg_binary, verbose=False)
 
     # on next (while):
-    while 1:
+    for i in range(iteration_time):
+    #while 1:
         # get input and output (seg) vols
         input_vol = next(vol_gen).astype('float16')
         output_vol = next(seg_gen).astype('float16')  # was int8. Why? need float possibility...

@@ -32,7 +32,7 @@ seg_data_dir='/home/ys895/resize256/resize256-crop_x32/train/asegs/'
 nf_enc = [16, 32, 32, 32]
 nf_dec = [32, 32, 32, 32, 32, 16, 16]
 
-for (a,b) in genera.vol_seg(vol_data_dir,seg_data_dir,nb_labels_reshape =500):
+for (a,b) in genera.vol_seg(vol_data_dir,seg_data_dir,nb_labels_reshape =500,iteration_time=2):
     print('the shape of a:')
     print(a.shape)
     print('the shape of b:')
