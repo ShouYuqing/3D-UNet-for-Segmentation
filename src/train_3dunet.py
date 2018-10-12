@@ -37,8 +37,8 @@ for (a,b) in genera.vol_seg(vol_data_dir,seg_data_dir,nb_labels_reshape =500,ite
     print(a.shape)
     print('the shape of b:')
     print(b.shape)
-    outtt=un.myunet(enc_nf=nf_enc,dec_nf=nf_dec,input=a)
-    print(outtt.shape)
+    #outtt=un.myunet(enc_nf=nf_enc,dec_nf=nf_dec,input=a)
+    #print(outtt.shape)
 
 
 #random.shuffle(train_vol_names)
