@@ -51,8 +51,9 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     :param batch_size: Optional, default of 1. can be larger, depends on GPU memory and volume size
     """
     #read label file
-    labels_data = sio.loadmat('labels.mat')
-
+    rl_data = sio.loadmat('labels.mat')
+    l_data=rl_data['data']
+    labels_data=l_data[0]
 
     # prepare model folder
     if not os.path.isdir(model_dir):
@@ -78,7 +79,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     # train
     #for step in range(0, n_iterations):
     for i in range(0, vol_size[1]):
-        for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir, nb_labels_reshape=len(labels_data),
+        for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
                                                    iteration_time=n_iterations):
             # get data and adjust data
             vol_train = vol_data[:, :, i, :]
@@ -87,18 +88,19 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
             model = un.unet(input_size=vol_size, label_nums=30)
             model.fit(vol_train, seg_train)
 
-        # train
-        train_loss = model.train_on_batch([X, atlas_vol], [atlas_vol, zero_flow])
-        if not isinstance(train_loss, list):
-            train_loss = [train_loss]
+            # train
+            train_loss = model.train_on_batch([X, atlas_vol], [atlas_vol, zero_flow])
+            if not isinstance(train_loss, list):
+                train_loss = [train_loss]
 
-        # print the loss.
-        #print_loss(step, 1, train_loss)
+            # print the loss.
+            #print_loss(step, 1, train_loss)
 
-        # save model
-        if step % model_save_iter == 0:
-            model.save(os.path.join(model_dir, str(i) + '_' + str(step) + '.h5'))
+            # save model
+            if step % model_save_iter == 0:
+                model.save(os.path.join(model_dir, str(i) + '_' + str(step) + '.h5'))
 
+# main function
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--gpu", type=int, default=0,
