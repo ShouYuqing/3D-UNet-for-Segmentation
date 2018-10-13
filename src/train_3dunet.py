@@ -4,6 +4,7 @@ import sys
 import random
 from argparse import ArgumentParser
 import tensorflow as tf
+import scipy.io as sio
 import numpy as np
 from keras.backend.tensorflow_backend import set_session
 from keras.optimizers import Adam
@@ -50,7 +51,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     :param batch_size: Optional, default of 1. can be larger, depends on GPU memory and volume size
     """
     #read label file
-    labels_data = scipy.io.loadmat('labels.mat')
+    labels_data = sio.loadmat('labels.mat')
 
 
     # prepare model folder
