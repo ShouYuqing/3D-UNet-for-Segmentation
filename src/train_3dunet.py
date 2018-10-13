@@ -79,26 +79,29 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     # train
     #for step in range(0, n_iterations):
     for i in range(0, vol_size[1]):
+        # set model
+        model = un.unet(input_size=vol_size, label_nums=30)
+
         for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
                                                    iteration_time=n_iterations):
             # get data and adjust data
             vol_train = vol_data[:, :, i, :]
             vol_train = vol_train.reshape(vol_train.shape + (1,))
             seg_train = seg_data[:, :, i, :, :]
-            model = un.unet(input_size=vol_size, label_nums=30)
-            model.fit(vol_train, seg_train)
 
             # train
-            train_loss = model.train_on_batch([X, atlas_vol], [atlas_vol, zero_flow])
-            if not isinstance(train_loss, list):
-                train_loss = [train_loss]
+            print('volume ' + str(i) + 'training...')
+            model.fit(vol_train, seg_train)
+            #train_loss = model.train_on_batch([X, atlas_vol], [atlas_vol, zero_flow])
+            #if not isinstance(train_loss, list):
+            #    train_loss = [train_loss]
 
             # print the loss.
             #print_loss(step, 1, train_loss)
 
             # save model
             if step % model_save_iter == 0:
-                model.save(os.path.join(model_dir, str(i) + '_' + str(step) + '.h5'))
+                model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(step) + '.h5'))
 
 # main function
 if __name__ == "__main__":
