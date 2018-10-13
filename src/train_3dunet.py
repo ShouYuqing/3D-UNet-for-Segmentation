@@ -52,7 +52,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     """
     #read label file
     rl_data = sio.loadmat('labels.mat')
-    l_data=rl_data['data']
+    l_data=rl_data['labels']
     labels_data=l_data[0]
 
     # prepare model folder
