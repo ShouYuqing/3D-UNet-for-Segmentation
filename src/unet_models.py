@@ -1,6 +1,4 @@
 import sys
-
-
 import numpy as np
 import keras.backend as K
 from keras.models import Model
@@ -9,7 +7,6 @@ from keras.layers import LeakyReLU, Reshape, Lambda
 from keras.initializers import RandomNormal
 import keras.initializers
 import tensorflow as tf
-
 
 
 
