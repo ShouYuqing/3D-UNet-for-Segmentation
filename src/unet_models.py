@@ -9,13 +9,12 @@ import keras.initializers
 import tensorflow as tf
 
 
-
 """
 2d unet changed for class project
-with output (1,256,256,500)
+with output (1,256,256,label_nums)
 input should be in (1,x,y,1) 4d tensor
 """
-def unet(pretrained_weights=None, input_size=(256, 256, 1)):
+def unet(pretrained_weights=None, input_size=(256, 256, 1), label_nums=1):
     inputs = Input(input_size)
     conv1 = Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(inputs)
     conv1 = Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv1)
@@ -64,7 +63,7 @@ def unet(pretrained_weights=None, input_size=(256, 256, 1)):
     conv9 = Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
     conv9 = Conv2D(2, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
     # conv10 = Conv2D(,50, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
-    conv10 = Conv2D(500, 1, activation='sigmoid')(conv9)
+    conv10 = Conv2D(label_nums, 1, activation='sigmoid')(conv9)
 
     model = Model(input=inputs, output=conv10)
 
