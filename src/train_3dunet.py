@@ -1,3 +1,4 @@
+# basic import
 import os
 import glob
 import sys
@@ -6,15 +7,17 @@ from argparse import ArgumentParser
 import tensorflow as tf
 import scipy.io as sio
 import numpy as np
+
+#
 import keras.backend as K
 from keras.initializers import RandomNormal
 import keras.initializers
-
+from keras.backend.tensorflow_backend import set_session
 from keras.models import *
 from keras.layers import *
 from keras.optimizers import *
 from keras.callbacks import ModelCheckpoint, LearningRateScheduler
-from keras import backend as keras
+
 
 
 # neuron and other libraries
@@ -26,7 +29,10 @@ import datagenerators
 import losses
 import neuron.generators as genera
 
+#import my library
 import unet_models as un
+
+
 vol_size = (160, 192, 224)
 
 
