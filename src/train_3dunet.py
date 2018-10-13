@@ -34,7 +34,7 @@ import unet_models as un
 
 
 vol_size = (160, 192, 224)
-
+new_vol_size = (vol_size[0], vol_size[2], 1)
 
 #set the data directory
 vol_data_dir='/home/ys895/resize256/resize256-crop_x32/train/vols/'
@@ -93,7 +93,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     #for step in range(0, n_iterations):
     for i in range(0, vol_size[1]):
         # set model
-        model = un.unet(input_size=vol_size, label_nums=30)
+        model = un.unet(input_size=new_vol_size, label_nums=30)
 
         for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
                                                    iteration_time=n_iterations):
