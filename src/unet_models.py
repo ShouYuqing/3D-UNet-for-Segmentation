@@ -11,9 +11,10 @@ import tensorflow as tf
 
 """
 2d unet changed for class project
-with output (1,256,256,label_nums)
-input should be in (1,x,y,1) 4d tensor
+output in (1,256,256,label_nums)
+input in (1,x,y,1) 4d tensor
 """
+
 def unet(pretrained_weights=None, input_size=(256, 256, 1), label_nums=1):
     inputs = Input(input_size)
     conv1 = Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(inputs)

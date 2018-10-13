@@ -28,7 +28,7 @@ seg_data_dir='/home/ys895/resize256/resize256-crop_x32/train/asegs/'
 
 
 
-for (vol_data, seg_data) in genera.vol_seg(vol_data_dir,seg_data_dir,nb_labels_reshape =500,iteration_time=2):
+#for (vol_data, seg_data) in genera.vol_seg(vol_data_dir,seg_data_dir,nb_labels_reshape =500,iteration_time=2):
 
 
     #print('the shape of a:')
@@ -37,20 +37,21 @@ for (vol_data, seg_data) in genera.vol_seg(vol_data_dir,seg_data_dir,nb_labels_r
     #print(b.shape)
     #outtt=un.myunet(enc_nf=nf_enc,dec_nf=nf_dec,input=a)
     #print(outtt.shape)
-#random.shuffle(train_vol_names)
+    #random.shuffle(train_vol_names)
 
 
-def train(model_dir, gpu_id, lr, n_iterations,  model_save_iter, batch_size=1):
+def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     """
-    model training function
+    model training
     :param model_dir: the model directory to save to
     :param gpu_id: integer specifying the gpu to use
-    :param lr: learning rate
     :param n_iterations: number of training iterations
-    :param
     :param model_save_iter: frequency with which to save models
     :param batch_size: Optional, default of 1. can be larger, depends on GPU memory and volume size
     """
+    #read label file
+    labels_data = scipy.io.loadmat('labels.mat')
+
 
     # prepare model folder
     if not os.path.isdir(model_dir):
@@ -63,24 +64,27 @@ def train(model_dir, gpu_id, lr, n_iterations,  model_save_iter, batch_size=1):
     config.allow_soft_placement = True
     set_session(tf.Session(config=config))
 
-
-
     # prepare the model
-    model = un.unet(input_size=(), label_nums =30)
+    #model = un.unet(input_size=(), label_nums =30)
 
     # if you'd like to initialize the data, you can do it here:
     # model.load_weights(os.path.join(model_dir, '120000.h5'))
 
     # prepare data for training
-    train_example_gen = datagenerators.example_gen(train_vol_names)
 
 
-    # train. Note: we use train_on_batch and design out own print function as this has enabled
-    # faster development and debugging, but one could also use fit_generator and Keras callbacks.
-    for step in range(0, n_iterations):
 
-        # get data
-        
+    # train
+    #for step in range(0, n_iterations):
+    for i in range(0, vol_size[1]):
+        for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir, nb_labels_reshape=len(labels_data),
+                                                   iteration_time=n_iterations):
+            # get data and adjust data
+            vol_train = vol_data[:, :, i, :]
+            vol_train = vol_train.reshape(vol_train.shape + (1,))
+            seg_train = seg_data[:, :, i, :, :]
+            model = un.unet(input_size=vol_size, label_nums=30)
+            model.fit(vol_train, seg_train)
 
         # train
         train_loss = model.train_on_batch([X, atlas_vol], [atlas_vol, zero_flow])
@@ -88,8 +92,25 @@ def train(model_dir, gpu_id, lr, n_iterations,  model_save_iter, batch_size=1):
             train_loss = [train_loss]
 
         # print the loss.
-        print_loss(step, 1, train_loss)
+        #print_loss(step, 1, train_loss)
 
         # save model
         if step % model_save_iter == 0:
-            model.save(os.path.join(model_dir, str(step) + '.h5'))
+            model.save(os.path.join(model_dir, str(i) + '_' + str(step) + '.h5'))
+
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument("--gpu", type=int, default=0,
+                        dest="gpu_id", help="gpu id number")
+    parser.add_argument("--iters", type=int,
+                        dest="n_iterations", default=150000,
+                        help="number of iterations")
+    parser.add_argument("--checkpoint_iter", type=int,
+                        dest="model_save_iter", default=100,
+                        help="frequency of model saves")
+    parser.add_argument("--model_dir", type=str,
+                        dest="model_dir", default='../models/',
+                        help="models folder")
+
+    args = parser.parse_args()
+    train(**vars(args))

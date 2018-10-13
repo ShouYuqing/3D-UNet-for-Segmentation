@@ -369,7 +369,7 @@ def vol_seg(volpath,
                   expected_files=vol_files, name=name+' seg', binary=seg_binary, verbose=False)
 
     # on next (while):
-    for i in range(iteration_time):
+    for i in range(0, iteration_time):
     #while 1:
         # get input and output (seg) vols
         input_vol = next(vol_gen).astype('float16')
