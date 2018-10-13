@@ -6,9 +6,16 @@ from argparse import ArgumentParser
 import tensorflow as tf
 import scipy.io as sio
 import numpy as np
-from keras.backend.tensorflow_backend import set_session
-from keras.optimizers import Adam
-from keras.models import load_model, Model
+import keras.backend as K
+from keras.initializers import RandomNormal
+import keras.initializers
+
+from keras.models import *
+from keras.layers import *
+from keras.optimizers import *
+from keras.callbacks import ModelCheckpoint, LearningRateScheduler
+from keras import backend as keras
+
 
 # neuron and other libraries
 sys.path.append('../ext/neuron')
