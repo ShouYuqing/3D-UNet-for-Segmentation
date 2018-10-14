@@ -97,7 +97,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
         for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
                                                    iteration_time=n_iterations):
             # get data and adjust data
-            vol_train = vol_data[:, :, i, :]
+            vol_train = vol_data[:, :, i, :, :]
             vol_train = vol_train.reshape(vol_train.shape + (1,))
             seg_train = seg_data[:, :, i, :, :]
 
