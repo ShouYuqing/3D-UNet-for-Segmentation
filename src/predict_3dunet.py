@@ -28,12 +28,13 @@ atlas_seg = atlas['seg']
 # slice the image
 slice_vol = atlas_vol[100]
 slice_seg = atlas_seg[100]
+
 # vol_size
 vol_size = (160, 192 ,224)
 vol_size1 = (160, 224, 1)
+
 # set model directory
 m_dir = '../models/slice100_30.h5'
-
 
 # set model
 load_model = un.unet(pretrained_weights = m_dir, input_size=vol_size1, label_nums = len(labels_data))
