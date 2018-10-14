@@ -29,6 +29,7 @@ atlas_seg = atlas['seg']
 
 # slice the image
 slice_vol = atlas_vol[100]
+slice_vol = slice_vol.reshape((1,)+slice_vol.shape+(1,))
 slice_seg = atlas_seg[100]
 
 # vol_size
@@ -42,7 +43,7 @@ m_dir = '/home/ys895/Models/slice100_30.h5'
 load_model = un.unet(pretrained_weights = m_dir, input_size=vol_size1, label_nums = len(labels_data))
 
 # predict
-p_outcome = load_model.predict(atlas_vol)
+p_outcome = load_model.predict(slice_vol)
 print(p_outcome.shape)
 
 # plot the image
