@@ -17,7 +17,8 @@ from keras.optimizers import *
 from keras.callbacks import ModelCheckpoint, LearningRateScheduler
 from keras import backend as keras
 from keras.backend.tensorflow_backend import set_session
-
+from keras.optimizers import Adam
+from keras.models import load_model, Model
 
 
 # neuron and other libraries
