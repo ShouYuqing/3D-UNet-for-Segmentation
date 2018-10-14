@@ -51,7 +51,7 @@ print(p_outcome)
 
 
 # plot the image
-nplt.slices(p_outcome, show = None)
+#nplt.slices(p_outcome, show = None)
 
 
 

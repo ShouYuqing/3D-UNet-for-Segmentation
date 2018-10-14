@@ -87,8 +87,8 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     # model.load_weights(os.path.join(model_dir, '120000.h5'))
 
     # train
-    #for step in range(0, n_iterations):
-    for i in range(100, vol_size[1]):
+    for i in range(100):
+    #for i in range(100, vol_size[1]):
         # set model
         model = un.unet(input_size=new_vol_size, label_nums=30)
         step = 0
@@ -98,7 +98,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
             vol_train = vol_data[:, :, i, :, :]
             #vol_train = vol_train.reshape(vol_train.shape + (1,))
             seg_train = seg_data[:, :, i, :, :]
-
+            print(seg_train)
             # train
             print('volume ' + str(i) + 'training...')
             model.fit(vol_train, seg_train, batch_size=20)
