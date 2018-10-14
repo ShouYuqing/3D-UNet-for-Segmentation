@@ -100,17 +100,13 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
 
             #datanew = 'seg_data.mat'
             #sio.savemat(datanew, {'seg': seg_train})
-
             print(seg_train.shape)
+
             # train
             print('volume ' + str(i) + 'training...')
             model.fit(vol_train, seg_train, batch_size=20)
-            #train_loss = model.train_on_batch([X, atlas_vol], [atlas_vol, zero_flow])
-            #if not isinstance(train_loss, list):
-            #    train_loss = [train_loss]
 
-            # print the loss.
-            #print_loss(step, 1, train_loss)
+            # print the loss
 
             # save model
             if step % model_save_iter == 0:
