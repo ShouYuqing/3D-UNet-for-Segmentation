@@ -16,6 +16,7 @@ from keras.layers import *
 from keras.optimizers import *
 from keras.callbacks import ModelCheckpoint, LearningRateScheduler
 from keras import backend as keras
+from keras.backend.tensorflow_backend import set_session
 
 
 
