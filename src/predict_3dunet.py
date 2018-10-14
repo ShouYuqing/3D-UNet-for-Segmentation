@@ -46,6 +46,10 @@ load_model = un.unet(pretrained_weights = m_dir, input_size=vol_size1, label_num
 p_outcome = load_model.predict(slice_vol)
 print(p_outcome.shape)
 
+
+# change the dimension of the output
+
+
 # plot the image
 nplt.slices(p_outcome, show = None)
 
