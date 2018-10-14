@@ -11,6 +11,8 @@ import keras
 from keras.models import load_model, Model
 import tensorflow as tf
 sys.path.append('../ext/neuron')
+sys.path.append('../ext/pynd-lib')
+sys.path.append('../ext/medipy-lib')
 import neuron.plot as nplt
 import unet_models as un
 

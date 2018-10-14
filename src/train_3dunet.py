@@ -86,10 +86,6 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     # if you'd like to initialize the data, you can do it here:
     # model.load_weights(os.path.join(model_dir, '120000.h5'))
 
-    # prepare data for training
-
-
-
     # train
     #for step in range(0, n_iterations):
     for i in range(100, vol_size[1]):
