@@ -17,7 +17,7 @@ import neuron.plot as nplt
 import unet_models as un
 
 # read labels
-rl_data = sio.loadmat('labels.mat')
+rl_data = sio.loadmat('../data/labels.mat')
 l_data = rl_data['labels']
 labels_data = l_data[0]
 
