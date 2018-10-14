@@ -47,7 +47,7 @@ p_outcome = load_model.predict(slice_vol)
 print(p_outcome.shape)
 
 # plot the image
-nplt.slice(p_outcome, show = None)
+nplt.slices(p_outcome, show = None)
 
 
 
