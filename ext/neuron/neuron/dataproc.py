@@ -27,6 +27,7 @@ from subprocess import call
 
 
 # import local ndutils
+sys.path.append('../ext/pynd-lib')
 import pynd.ndutils as nd
 import re
 
