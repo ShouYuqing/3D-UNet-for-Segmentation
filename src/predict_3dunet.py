@@ -20,9 +20,15 @@ labels_data = l_data[0]
 
 # vol_size
 vol_size = (160, 192 ,224)
+
+# set model directory
+#m_dir = '../models/slice20_30.h5'
+
 # set model
-model = un.unet(pretrained_weights=, )
-# slice the iamge
+#model = un.unet(pretrained_weights = m_dir, label_nums = len(labels_data))
+
+# slice the image
+
 
 # plot the image
 

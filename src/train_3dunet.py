@@ -65,7 +65,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     :param batch_size: Optional, default of 1. can be larger, depends on GPU memory and volume size
     """
     #read label file
-    rl_data = sio.loadmat('labels.mat')
+    rl_data = sio.loadmat('../data/labels.mat')
     l_data=rl_data['labels']
     labels_data=l_data[0]
 
