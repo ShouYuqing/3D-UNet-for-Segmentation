@@ -15,6 +15,7 @@ import keras.preprocessing.image
 from keras.models import Model
 
 # local packages
+sys.path.append('../ext/pytools-lib')
 import pynd.ndutils as nd
 import pytools.patchlib as pl
 import pytools.timer as timer
