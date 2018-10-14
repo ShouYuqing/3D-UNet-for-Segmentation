@@ -28,9 +28,9 @@ atlas_vol = atlas['vol']
 atlas_seg = atlas['seg']
 
 # slice the image
-slice_vol = atlas_vol[100]
-slice_vol = slice_vol.reshape((1,)+slice_vol.shape+(1,))
-slice_seg = atlas_seg[100]
+slice_vol = atlas_vol[:,100,:,:]
+slice_vol = slice_vol.reshape((1,) + slice_vol.shape)
+slice_seg = atlas_seg[:,100,:,:]
 
 # vol_size
 vol_size = (160, 192 ,224)
