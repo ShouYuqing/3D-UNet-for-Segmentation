@@ -44,7 +44,7 @@ p_outcome = load_model.predict(atlas_vol)
 print(p_outcome.shape)
 
 # plot the image
-#nplt.slice(p_outcome, show = None)
+nplt.slice(p_outcome, show = None)
 
 
 

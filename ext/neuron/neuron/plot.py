@@ -1,7 +1,8 @@
 ''' plot tools for the neuron project '''
-
-import numpy as np
+import matplotlib
+matplotlib.use('PDF')
 import matplotlib.pyplot as plt
+import numpy as np
 from mpl_toolkits.axes_grid1 import make_axes_locatable # plotting
 
 def slices(slices_in,              # the 2D slices
@@ -81,7 +82,7 @@ def slices(slices_in,              # the 2D slices
     # show the plots
     fig.set_size_inches(width, rows/cols*width)
     plt.tight_layout()
-
+    plt.savefig('outcome_seg.pdf')
     if show:
         plt.show()
 
