@@ -98,9 +98,9 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
             vol_train = vol_data[:, :, i, :, :]
             seg_train = seg_data[:, :, i, :, :]
 
-            #datanew = 'seg_data.mat'
-            #sio.savemat(datanew, {'seg': seg_train})
-            print(seg_train.shape)
+            seg_train1 = seg_train[0,:,:,:]
+            datanew = 'seg_data.mat'
+            sio.savemat(datanew, {'seg': seg_train1})
 
             # train
             print('volume ' + str(i) + 'training...')
