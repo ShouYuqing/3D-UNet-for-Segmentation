@@ -100,7 +100,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
                                                    iteration_time=n_iterations):
             # get data and adjust data
             vol_train = vol_data[:, :, i, :, :]
-            vol_train = vol_train.reshape(vol_train.shape + (1,))
+            #vol_train = vol_train.reshape(vol_train.shape + (1,))
             seg_train = seg_data[:, :, i, :, :]
 
             # train
