@@ -92,7 +92,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
 
     # train
     #for step in range(0, n_iterations):
-    for i in range(0, vol_size[1]):
+    for i in range(100, vol_size[1]):
         # set model
         model = un.unet(input_size=new_vol_size, label_nums=30)
         step = 0
@@ -105,7 +105,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
 
             # train
             print('volume ' + str(i) + 'training...')
-            model.fit(vol_train, seg_train)
+            model.fit(vol_train, seg_train, batch_size=20)
             #train_loss = model.train_on_batch([X, atlas_vol], [atlas_vol, zero_flow])
             #if not isinstance(train_loss, list):
             #    train_loss = [train_loss]
