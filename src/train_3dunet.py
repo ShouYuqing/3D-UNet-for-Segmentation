@@ -4,19 +4,18 @@ import glob
 import sys
 import random
 from argparse import ArgumentParser
-import tensorflow as tf
 import scipy.io as sio
 import numpy as np
 
 #
-import keras.backend as K
-from keras.initializers import RandomNormal
-import keras.initializers
-from keras.backend.tensorflow_backend import set_session
+import skimage.io as io
+import skimage.transform as trans
+import tensorflow as tf
 from keras.models import *
 from keras.layers import *
 from keras.optimizers import *
 from keras.callbacks import ModelCheckpoint, LearningRateScheduler
+from keras import backend as keras
 
 
 
