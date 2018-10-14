@@ -2,7 +2,7 @@ import sys
 import numpy as np
 import keras.backend as K
 from keras.models import Model
-from keras.layers import Conv2D, Conv3D, Activation, Input, UpSampling3D, concatenate
+from keras.layers import Conv2D, Conv3D, Activation, Input, UpSampling3D, concatenate, MaxPooling2D, Dropout, UpSampling2D
 from keras.layers import LeakyReLU, Reshape, Lambda
 from keras.initializers import RandomNormal
 import keras.initializers
