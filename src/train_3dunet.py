@@ -94,7 +94,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
         for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
                                                    iteration_time=n_iterations):
             # print seg_data
-            datanew='/seg_data.mat'
+            datanew='seg_data.mat'
             sio.savemat(datanew, {'seg': seg_data})
             #print(seg_data)
             #print(vol_data)
