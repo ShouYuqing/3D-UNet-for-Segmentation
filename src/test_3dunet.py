@@ -5,7 +5,6 @@ import random
 from argparse import ArgumentParser
 import tensorflow as tf
 import numpy as np
-from keras.optimizers import Adam
 from keras.models import load_model, Model
 
 # neuron and other libraries
