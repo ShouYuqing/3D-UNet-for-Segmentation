@@ -26,7 +26,6 @@ sys.path.append('../ext/neuron')
 sys.path.append('../ext/medipy-lib')
 sys.path.append('../ext/pynd-lib')
 sys.path.append('../ext/pytools-lib')
-import datagenerators
 import losses
 import neuron.generators as genera
 
