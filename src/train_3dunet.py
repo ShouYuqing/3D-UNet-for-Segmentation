@@ -95,7 +95,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     for i in range(0, vol_size[1]):
         # set model
         model = un.unet(input_size=new_vol_size, label_nums=30)
-
+        step = 0
         for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
                                                    iteration_time=n_iterations):
             # get data and adjust data
@@ -116,6 +116,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
             # save model
             if step % model_save_iter == 0:
                 model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(step) + '.h5'))
+            step = step + 1
 
 # main function
 if __name__ == "__main__":
