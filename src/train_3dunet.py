@@ -96,11 +96,12 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
 
             # get data and adjust data
             vol_train = vol_data[:, :, i, :, :]
-            #vol_train = vol_train.reshape(vol_train.shape + (1,))
             seg_train = seg_data[:, :, i, :, :]
-            datanew = 'seg_data.mat'
-            sio.savemat(datanew, {'seg': seg_train})
-            print(seg_train)
+
+            #datanew = 'seg_data.mat'
+            #sio.savemat(datanew, {'seg': seg_train})
+
+            print(seg_train.shape)
             # train
             print('volume ' + str(i) + 'training...')
             model.fit(vol_train, seg_train, batch_size=20)
