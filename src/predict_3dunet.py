@@ -45,6 +45,8 @@ load_model = un.unet(pretrained_weights = m_dir, input_size=vol_size1, label_num
 # predict
 p_outcome = load_model.predict(slice_vol)
 print(p_outcome)
+datanew = 'output_data.mat'
+sio.savemat(datanew, {'output': p_outcome})
 
 
 # change the dimension of the output
