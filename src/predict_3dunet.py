@@ -78,7 +78,7 @@ for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=la
     #seg_train1 = seg_train[0,:,:,:]
     #datanew = 'seg_data.mat'
     #sio.savemat(datanew, {'seg': seg_train1})
-    score = model.evaluate(vol_test, seg_test, verbose=0)
+    score = load_model.evaluate(vol_test, seg_test, verbose=0)
     print('Test score:', score[0])
     print('Test accuracy:', score[1])
 
