@@ -6,7 +6,7 @@ import random
 from argparse import ArgumentParser
 import scipy.io as sio
 import numpy as np
-
+`
 import keras
 from keras.models import load_model, Model
 import tensorflow as tf
@@ -44,6 +44,8 @@ load_model = un.unet(pretrained_weights = m_dir, input_size=vol_size1, label_num
 
 # predict
 p_outcome = load_model.predict(slice_vol)
+
+# visualization of the outputs
 print(p_outcome)
 datanew = 'output_data.mat'
 sio.savemat(datanew, {'output': p_outcome})

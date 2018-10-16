@@ -65,12 +65,13 @@ def unet(pretrained_weights=None, input_size=(256, 256, 1), label_nums=1):
     conv9 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge9)
     conv9 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
     conv9 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
-    # conv10 = Conv2D(,50, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
+    ## conv10 = Conv2D(,50, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
     conv10 = Conv2D(label_nums, 1, activation='softmax')(conv9)
+
 
     model = Model(input=inputs, output=conv10)
 
-    model.compile(optimizer=Adam(lr=1e-4), loss='binary_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer=Adam(lr=1e-4), loss='categorical_crossentropy', metrics=['accuracy'])
 
     # model.summary()
 
