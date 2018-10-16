@@ -54,14 +54,13 @@ seg_data_dir='/home/ys895/resize256/resize256-crop_x32/train/asegs/'
     #random.shuffle(train_vol_names)
 
 
-def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
+def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_train_num):
     """
     model training
     :param model_dir: the model directory to save to
     :param gpu_id: integer specifying the gpu to use
     :param n_iterations: number of training iterations
     :param model_save_iter: frequency with which to save models
-    :param batch_size: Optional, default of 1. can be larger, depends on GPU memory and volume size
     """
     #read label file
     rl_data = sio.loadmat('../data/labels.mat')
@@ -79,18 +78,17 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     config.allow_soft_placement = True
     set_session(tf.Session(config=config))
 
-    # prepare the model
-    #model = un.unet(input_size=(), label_nums =30)
-
-    # if you'd like to initialize the data, you can do it here:
-    # model.load_weights(os.path.join(model_dir, '120000.h5'))
-
     # train
     # get every slice's model
     #for i in range(100,101):
     for i in range(1, vol_size[1]):
+        if(pre_num != 0):
+            # generate model directory
+            m_dir='/home/ys895/Models/slice' + str(i) + '_' + str(pre_num) + '.h5'
+        else:
+            m_dir=None
         # set model
-        model = un.unet(input_size=new_vol_size, label_nums=30)
+        model = un.unet(pretrained_weights = m_dir, input_size=new_vol_size, label_nums=30)
         step = 0
         for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
                                                    iteration_time=n_iterations):
@@ -106,8 +104,6 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
             # train
             print('volume ' + str(i) + 'training...')
             model.fit(vol_train, seg_train, batch_size=20)
-
-            # print the loss
 
             # save model
             if step % model_save_iter == 0:
@@ -125,6 +121,9 @@ if __name__ == "__main__":
     parser.add_argument("--checkpoint_iter", type=int,
                         dest="model_save_iter", default=100,
                         help="frequency of model saves")
+    parser.add_argument("--pre", type=int,
+                        dest="pre_num", default=0,
+                        help="previous training iteration")
     parser.add_argument("--model_dir", type=str,
                         dest="model_dir", default='../models/',
                         help="models folder")
