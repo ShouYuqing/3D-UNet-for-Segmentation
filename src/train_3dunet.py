@@ -86,8 +86,9 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, batch_size=1):
     # model.load_weights(os.path.join(model_dir, '120000.h5'))
 
     # train
-    for i in range(100,101):
-    #for i in range(100, vol_size[1]):
+    # get every slice's model
+    #for i in range(100,101):
+    for i in range(1, vol_size[1]):
         # set model
         model = un.unet(input_size=new_vol_size, label_nums=30)
         step = 0
