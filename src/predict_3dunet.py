@@ -17,6 +17,10 @@ import neuron.plot as nplt
 import unet_models as un
 import neuron.generators as genera
 
+# data direction
+vol_data_dir='/home/ys895/resize256/resize256-crop_x32/train/vols/'
+seg_data_dir='/home/ys895/resize256/resize256-crop_x32/train/asegs/'
+
 # read labels
 rl_data = sio.loadmat('../data/labels.mat')
 l_data = rl_data['labels']
