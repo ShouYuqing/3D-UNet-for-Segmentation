@@ -62,5 +62,19 @@ print(p_outcome)
 # plot the image
 #nplt.slices(p_outcome, show = None)
 
+# set model
+for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
+                                                   iteration_time=20):
+
+    # get data and adjust data
+    vol_train = vol_data[:, :, i, :, :]
+    seg_train = seg_data[:, :, i, :, :]
+
+    #seg_train1 = seg_train[0,:,:,:]
+    #datanew = 'seg_data.mat'
+    #sio.savemat(datanew, {'seg': seg_train1})
+    score = model.evaluate(vol_train, seg_train, verbose=0)
+    print('Test score:', score[0])
+    print('Test accuracy:', score[1])
 
 
