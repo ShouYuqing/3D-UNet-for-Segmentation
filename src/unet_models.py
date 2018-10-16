@@ -75,7 +75,7 @@ def unet(pretrained_weights=None, input_size=(256, 256, 1), label_nums=1):
     conv13 = core.Activation('softmax')(conv12)
     model = Model(input=inputs, output=conv13)
 
-    model.compile(optimizer=Adam(lr=1e-4), loss='categorical_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer=Adam(lr=1e-4), loss='binary_crossentropy', metrics=['accuracy'])
 
     # model.summary()
 
