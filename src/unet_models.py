@@ -3,7 +3,7 @@ import numpy as np
 import keras.backend as K
 from keras.models import Model
 from keras.layers import Conv2D, Conv3D, Activation, Input, UpSampling3D, concatenate, MaxPooling2D, Dropout, UpSampling2D
-from keras.layers import LeakyReLU, Reshape, Lambda
+from keras.layers import LeakyReLU, Reshape, Lambda, core
 from keras.initializers import RandomNormal
 import keras.initializers
 from keras.optimizers import Adam
@@ -66,10 +66,14 @@ def unet(pretrained_weights=None, input_size=(256, 256, 1), label_nums=1):
     conv9 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
     conv9 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
     ## conv10 = Conv2D(,50, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
-    conv10 = Conv2D(label_nums, 1, activation='softmax')(conv9)
+    #conv10 = Conv2D(label_nums, 1, activation='softmax')(conv9)
+    conv10 = Conv2D(30, 1, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
+    conv11 = core.Reshape((30,160,224))(conv10)
+    conv12 = core.Permute((2, 3, 1))(conv11)
 
 
-    model = Model(input=inputs, output=conv10)
+    conv13 = core.Activation('softmax')(conv12)
+    model = Model(input=inputs, output=conv13)
 
     model.compile(optimizer=Adam(lr=1e-4), loss='categorical_crossentropy', metrics=['accuracy'])
 
