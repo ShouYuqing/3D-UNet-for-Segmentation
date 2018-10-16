@@ -125,7 +125,7 @@ if __name__ == "__main__":
                         dest="pre_num", default=0,
                         help="previous training iteration")
     parser.add_argument("--model_dir", type=str,
-                        dest="model_dir", default='../models/',
+                        dest="model_dir", default='/home/ys895/Models/',
                         help="models folder")
 
     args = parser.parse_args()
