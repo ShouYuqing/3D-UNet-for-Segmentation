@@ -32,6 +32,11 @@ slice_vol = atlas_vol[:,100,:]
 slice_vol = slice_vol.reshape((1,) + slice_vol.shape + (1,))
 slice_seg = atlas_seg[:,100,:]
 
+# save the slice of raw segmentation
+datanew = 'raw_seg.mat'
+sio.savemat(datanew, {'raw_seg': slice_seg})
+
+
 # vol_size
 vol_size = (160, 192 ,224)
 vol_size1 = (160, 224, 1)
