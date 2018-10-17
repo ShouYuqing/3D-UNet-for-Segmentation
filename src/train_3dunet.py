@@ -84,8 +84,8 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_num):
 
     # train
     # get every slice's model
-    #for i in range(100,101):
-    for i in range(1, vol_size[1]):
+    for i in range(100,101):
+    #for i in range(1, vol_size[1]):
         if(pre_num != 0):
             # generate model directory
             m_dir='/home/ys895/Models/slice' + str(i) + '_' + str(pre_num) + '.h5'
