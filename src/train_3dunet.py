@@ -53,8 +53,12 @@ seg_data_dir='/home/ys895/resize256/resize256-crop_x32/train/asegs/'
     #print(outtt.shape)
     #random.shuffle(train_vol_names)
 
+"""
+In order to keep satisfied model's save name, the number of iteration should be the same as the 
+number of checkpoint_iteration.
+"""
 
-def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_train_num):
+def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_num):
     """
     model training
     :param model_dir: the model directory to save to
@@ -80,8 +84,8 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_train_num):
 
     # train
     # get every slice's model
-    for i in range(100,101):
-    #for i in range(1, vol_size[1]):
+    #for i in range(100,101):
+    for i in range(1, vol_size[1]):
         if(pre_num != 0):
             # generate model directory
             m_dir='/home/ys895/Models/slice' + str(i) + '_' + str(pre_num) + '.h5'
@@ -89,7 +93,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_train_num):
             m_dir=None
         # set model
         model = un.unet(pretrained_weights = m_dir, input_size=new_vol_size, label_nums=30)
-        step = 0
+        step = 1
         for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
                                                    iteration_time=n_iterations):
 
@@ -107,7 +111,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_train_num):
 
             # save model
             if step % model_save_iter == 0:
-                model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(step) + '.h5'))
+                model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
             step = step + 1
 
 # main function
@@ -116,7 +120,7 @@ if __name__ == "__main__":
     parser.add_argument("--gpu", type=int, default=0,
                         dest="gpu_id", help="gpu id number")
     parser.add_argument("--iters", type=int,
-                        dest="n_iterations", default=150000,
+                        dest="n_iterations", default=15000,
                         help="number of iterations")
     parser.add_argument("--checkpoint_iter", type=int,
                         dest="model_save_iter", default=100,
