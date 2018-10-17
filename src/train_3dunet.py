@@ -84,7 +84,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_num):
 
     # train
     # get every slice's model
-    for i in range(50,55):
+    for i in range(90,95):
     #for i in range(1, vol_size[1]):
         if(pre_num != 0):
             # generate model directory
