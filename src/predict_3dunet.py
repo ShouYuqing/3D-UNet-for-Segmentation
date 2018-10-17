@@ -57,8 +57,8 @@ p_outcome = load_model.predict(slice_vol)
 
 # visualization of the outputs
 print(p_outcome)
-#datanew = 'output_data.mat'
-#sio.savemat(datanew, {'output': p_outcome})
+datanew = 'output_data.mat'
+sio.savemat(datanew, {'output': p_outcome})
 
 
 # change the dimension of the output
