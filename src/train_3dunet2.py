@@ -109,7 +109,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_num):
 
         # train
         print('volume ' + str(i) + 'training...')
-        model.fit(vol_train, seg_train, batch_size=30)
+        model.fit(vol_train, seg_train, batch_size=200)
 
         # save model
         if step % model_save_iter == 0:
