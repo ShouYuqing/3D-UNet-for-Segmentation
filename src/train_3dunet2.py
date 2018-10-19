@@ -87,9 +87,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_num):
     set_session(tf.Session(config=config))
 
     # train
-
-
-#for i in range(1, vol_size[1]):
+    #for i in range(1, vol_size[1]):
     if(pre_num != 0):
         # generate model directory
         m_dir='/home/ys895/Models/iter' + str(pre_num) + '.h5'
