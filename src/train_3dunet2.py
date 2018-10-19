@@ -1,5 +1,5 @@
 '''
-train several models for different layers
+train a model for all slices
 '''
 
 # basic import
@@ -87,36 +87,36 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_num):
     set_session(tf.Session(config=config))
 
     # train
-    # get every slice's model
-    for i in range(90,95):
-    #for i in range(1, vol_size[1]):
-        if(pre_num != 0):
-            # generate model directory
-            m_dir='/home/ys895/Models/slice' + str(i) + '_' + str(pre_num) + '.h5'
-        else:
-            m_dir=None
-        # set model
-        model = un.unet(pretrained_weights = m_dir, input_size=new_vol_size, label_nums=30)
-        step = 1
-        for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
+
+
+#for i in range(1, vol_size[1]):
+    if(pre_num != 0):
+        # generate model directory
+        m_dir='/home/ys895/Models/iter' + str(pre_num) + '.h5'
+    else:
+        m_dir=None
+    # set model
+    model = un.unet(pretrained_weights = m_dir, input_size=new_vol_size, label_nums=30)
+    step = 1
+    for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
                                                    iteration_time=n_iterations):
+        i = random.randint(0, 191)
+        # get data and adjust data
+        vol_train = vol_data[:, :, i, :, :]
+        seg_train = seg_data[:, :, i, :, :]
 
-            # get data and adjust data
-            vol_train = vol_data[:, :, i, :, :]
-            seg_train = seg_data[:, :, i, :, :]
+        #seg_train1 = seg_train[0,:,:,:]
+        #datanew = 'seg_data.mat'
+        #sio.savemat(datanew, {'seg': seg_train1})
 
-            #seg_train1 = seg_train[0,:,:,:]
-            #datanew = 'seg_data.mat'
-            #sio.savemat(datanew, {'seg': seg_train1})
+        # train
+        print('volume ' + str(i) + 'training...')
+        model.fit(vol_train, seg_train, batch_size=30)
 
-            # train
-            print('volume ' + str(i) + 'training...')
-            model.fit(vol_train, seg_train, batch_size=30)
-
-            # save model
-            if step % model_save_iter == 0:
-                model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
-            step = step + 1
+        # save model
+        if step % model_save_iter == 0:
+            model.save(os.path.join(model_dir, 'iter' + str(pre_num + step) + '.h5'))
+        step = step + 1
 
 # main function
 if __name__ == "__main__":
