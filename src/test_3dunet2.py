@@ -56,7 +56,7 @@ for (vol_data,seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=lab
         concatenate_outcome[:,:,i,:,:] = load_model.predict(vol_train)
         #np.concatenate([concatenate_outcome,concatenate_outcome])
 
-    concatenate_outcome.reshape([1,concatenate_outcome.shape[1],concatenate_outcome.shape[0],concatenate_outcome.shape[2],concatenate_outcome.shape[3]])
+    concatenate_outcome.reshape([1,concatenate_outcome.shape[1],concatenate_outcome.shape[2],concatenate_outcome.shape[3],concatenate_outcome.shape[4]])
     print('the shape of the output:')
     print(concatenate_outcome.shape)
     # compute the dice score of test example
