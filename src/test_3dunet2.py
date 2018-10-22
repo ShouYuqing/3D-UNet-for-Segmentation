@@ -61,7 +61,7 @@ for (vol_data,seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=lab
     #print(concatenate_outcome.shape)
     # compute the dice score of test example
     print('the dice score of the test is:')
-    dice_score = metrics.Dice(nb_labels = len(labels_data), input_type='max_label',
+    dice_score = nm.Dice(nb_labels = len(labels_data), input_type='max_label',
                  dice_type='hard',
                  approx_hard_max=True,
                  vox_weights=None,
