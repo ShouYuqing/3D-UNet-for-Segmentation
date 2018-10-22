@@ -44,6 +44,9 @@ new_vol_size = (vol_size[0], vol_size[2], 1)
 vol_data_dir='/home/ys895/resize256/resize256-crop_x32/train/vols/'
 seg_data_dir='/home/ys895/resize256/resize256-crop_x32/train/asegs/'
 
+# training batch size
+train_batch_size = 200
+
 
 
 #for (vol_data, seg_data) in genera.vol_seg(vol_data_dir,seg_data_dir,nb_labels_reshape =500,iteration_time=2):
@@ -97,7 +100,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_num):
     model = un.unet(pretrained_weights = m_dir, input_size=new_vol_size, label_nums=30)
     step = 1
     for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
-                                                   iteration_time=n_iterations):
+                                                   iteration_time=n_iterations*train_batch_size):
         i = random.randint(0, 191)
         # get data and adjust data
         vol_train = vol_data[:, :, i, :, :]
@@ -109,7 +112,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_num):
 
         # train
         print('volume ' + str(i) + 'training...')
-        model.fit(vol_train, seg_train, batch_size=200)
+        model.fit(vol_train, seg_train, batch_size=train_batch_size)
 
         # save model
         if step % model_save_iter == 0:
