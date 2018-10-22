@@ -102,7 +102,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_num):
     for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
                                                    iteration_time=n_iterations*train_batch_size):
         i = random.randint(0, 191)
-        # get data and adjust data
+        # get random slices of data used for training
         vol_train = vol_data[:, :, i, :, :]
         seg_train = seg_data[:, :, i, :, :]
 
