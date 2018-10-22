@@ -37,6 +37,10 @@ labels_data = l_data[0]
 # set model directory
 m_dir = '/home/ys895/Models/iter' + str(test_iter) + '.h5'
 
+# vol_size
+vol_size = (160, 192 ,224)
+vol_size1 = (160, 224, 1)
+
 # load weight
 load_model = un.unet(pretrained_weights = m_dir, input_size=vol_size1, label_nums = len(labels_data))
 
