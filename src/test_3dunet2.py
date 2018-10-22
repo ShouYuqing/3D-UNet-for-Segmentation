@@ -60,8 +60,6 @@ for (vol_data,seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=lab
     #print('the shape of the output:')
     #print(concatenate_outcome.shape)
     # compute the dice score of test example
-    print(seg_data.shape)
-    print(concatenate_outcome.shape)
     print('the dice score of the test is:')
     dice_score = nm.Dice(nb_labels = len(labels_data), input_type='max_label',
                  dice_type='hard',
