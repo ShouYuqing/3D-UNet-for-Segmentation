@@ -1,5 +1,5 @@
 '''
-predict the model with was trained for all slices of images
+predict the model which was trained for all slices of images
 '''
 
 # import lib
