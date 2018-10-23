@@ -1,5 +1,7 @@
 '''
 train a model for all slices
+evaluate by accuracy
+needed to be changed into dice score in the future
 '''
 
 # basic import

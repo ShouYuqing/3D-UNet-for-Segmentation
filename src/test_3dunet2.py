@@ -1,5 +1,5 @@
 '''
-test the model which was trained for all slices of images by dice score
+test the model which was trained for all slices of images by dice scores
 '''
 
 # import lib
