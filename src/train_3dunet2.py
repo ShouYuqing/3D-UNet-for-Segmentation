@@ -102,7 +102,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_num):
     model = un.unet(pretrained_weights = m_dir, input_size=new_vol_size, label_nums=30)
     step = 1
     for (vol_data, seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=labels_data,  nb_labels_reshape=len(labels_data),
-                                                   iteration_time=n_iterations*train_batch_size):
+                                                   iteration_time=n_iterations):
         i = random.randint(0, 191)
         # get random slices of data used for training
         vol_train = vol_data[:, :, i, :, :]
@@ -113,7 +113,7 @@ def train(model_dir, gpu_id, n_iterations,  model_save_iter, pre_num):
         #sio.savemat(datanew, {'seg': seg_train1})
 
         # train
-        print('iter ' + 'step ----- ' + 'volume ' + str(i) + 'training...')
+        print('iter ' + str(step) + '----- ' + 'volume ' + str(i) + 'training...')
         model.fit(vol_train, seg_train, batch_size=train_batch_size)
 
         # save model
