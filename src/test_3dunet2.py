@@ -24,7 +24,7 @@ import neuron.generators as genera
 
 # number of iteration for testing
 iter_num = 20
-test_iter = 500
+test_iter = 8000
 # data direction
 vol_data_dir='/home/ys895/resize256/resize256-crop_x32/train/vols/'
 seg_data_dir='/home/ys895/resize256/resize256-crop_x32/train/asegs/'
