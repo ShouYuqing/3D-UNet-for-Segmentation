@@ -64,7 +64,7 @@ for (vol_data,seg_data) in genera.vol_seg(vol_data_dir, seg_data_dir,relabel=lab
     print('the dice score of the test is:')
     #dice_score = nm.Dice(nb_labels = len(labels_data), input_type='prob', dice_type='hard',).dice(seg_data,concatenate_outcome)
     #dice_score = dice(concatenate_outcome,,)
-    als, _ = dice(concatenate_outcome, seg_data, nargout=2)
+    vals, _ = dice(concatenate_outcome, seg_data, nargout=2)
     print(np.mean(vals), np.std(vals))
     #print(dice_score)
 
