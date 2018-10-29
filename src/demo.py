@@ -27,6 +27,8 @@ demo for function dice score
 tensor1 = np.array([[[0,1,0],[0,1,0],[0,1,0]],[[0,1,0],[0,1,0],[0,1,0]],[[0,1,0],[0,1,0],[0,1,0]]])
 tensor2 = np.array([[[0,1,0],[0,1,0],[0,1,0]],[[0,1,0],[0,1,0],[0,1,1]],[[0,1,0],[0,1,0],[0,1,0]]])
 
-vals, _ = dice(tensor1, tensor2, nargout=2)
+dice_score = nm.Dice(nb_labels = len(labels_data), input_type='prob', dice_type='hard',).dice(seg_data,concatenate_outcome)
+#vals, _ = dice(tensor1, tensor2, nargout=2)
 print('calcualting dice score:')
-print(np.mean(vals), np.std(vals))
+print(dice_score)
+#print(np.mean(vals), np.std(vals))
