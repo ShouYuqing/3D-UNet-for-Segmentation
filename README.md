@@ -1,5 +1,7 @@
 # 3D-UNet for Segmentation
-in progress
+> 3D-UNet for segmentation of 3D MRI brain image
+> 
+> 
 
 
 
