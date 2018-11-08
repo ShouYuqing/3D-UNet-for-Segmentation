@@ -1,95 +1,77 @@
-import sys
-import numpy as np
-import keras.backend as K
+from keras.layers import Input, BatchNormalization, MaxPool3D, Conv3D, UpSampling3D, Concatenate, Activation
 from keras.models import Model
-from keras.layers import Conv2D, Conv3D, Activation, Input, UpSampling3D, concatenate, MaxPooling2D, Dropout, UpSampling2D
-from keras.layers import LeakyReLU, Reshape, Lambda, core
-from keras.initializers import RandomNormal
-import keras.initializers
 from keras.optimizers import Adam
-from keras.models import load_model, Model
-import tensorflow as tf
+from dice import *
+
+def unet(lr):
+
+    inputs = Input((64, 64, 64, 1))
+
+    '''downsample'''
+    conv1 = Conv3D(8, 3, padding='same', kernel_initializer='he_normal')(inputs)
+    batc1 = BatchNormalization(axis=-1)(conv1)
+    acti1 = Activation('relu')(batc1)
+    conv2 = Conv3D(16, 3, padding='same', kernel_initializer='he_normal')(acti1)
+    batc2 = BatchNormalization(axis=-1)(conv2)
+    acti2 = Activation('relu')(batc2)
+    maxp1 = MaxPool3D(2)(acti2)
 
 
-"""
-2d unet changed for class project
-output in (1,256,256,label_nums)
-input in (1,x,y,1) 4d tensor
-"""
-
-def unet(pretrained_weights=None, input_size=(256, 256, 1), label_nums=1):
-    inputs = Input(input_size)
-    conv1 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(inputs)
-    #conv1 = Dropout(0.2)(conv1)
-    conv1 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv1)
-    pool1 = MaxPooling2D(pool_size=(2, 2))(conv1)
-    conv2 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool1)
-    #conv2 = Dropout(0.2)(conv2)
-    conv2 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv2)
-    pool2 = MaxPooling2D(pool_size=(2, 2))(conv2)
-    conv3 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool2)
-    #conv3 = Dropout(0.2)(conv3)
-    conv3 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv3)
-    pool3 = MaxPooling2D(pool_size=(2, 2))(conv3)
-    conv4 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool3)
-    #conv4 = Dropout(0.2)(conv4)
-    conv4 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv4)
-    drop4 = Dropout(0.5)(conv4)
-    pool4 = MaxPooling2D(pool_size=(2, 2))(drop4)
-
-    conv5 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool4)
-    #conv5 = Dropout(0.2)(conv5)
-    conv5 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv5)
-    drop5 = Dropout(0.5)(conv5)
-
-    up6 = Conv2D(32, 2, activation='relu', padding='same', kernel_initializer='he_normal')(
-        UpSampling2D(size=(2, 2))(drop5))
-    merge6 = concatenate([drop4, up6], axis=3)
-    # merge6 = merge([drop4,up6], mode = 'concat', concat_axis = 3)
-    conv6 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge6)
-    #conv6 = Dropout(0.2)(conv6)
-    conv6 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv6)
-
-    up7 = Conv2D(32, 2, activation='relu', padding='same', kernel_initializer='he_normal')(
-        UpSampling2D(size=(2, 2))(conv6))
-    merge7 = concatenate([conv3, up7], axis=3)
-    # merge7 = merge([conv3,up7], mode = 'concat', concat_axis = 3)
-    conv7 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge7)
-    #conv7 = Dropout(0.2)(conv7)
-    conv7 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv7)
-
-    up8 = Conv2D(32, 2, activation='relu', padding='same', kernel_initializer='he_normal')(
-        UpSampling2D(size=(2, 2))(conv7))
-    merge8 = concatenate([conv2, up8], axis=3)
-    # merge8 = merge([conv2,up8], mode = 'concat', concat_axis = 3)
-    conv8 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge8)
-    #conv8 = Dropout(0.2)(conv8)
-    conv8 = Conv2D(32, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv8)
-
-    up9 = Conv2D(16, 2, activation='relu', padding='same', kernel_initializer='he_normal')(
-        UpSampling2D(size=(2, 2))(conv8))
-    merge9 = concatenate([conv1, up9], axis=3)
-    # merge9 = merge([conv1,up9], mode = 'concat', concat_axis = 3)
-    conv9 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge9)
-    #conv9 = Dropout(0.2)(conv9)
-    conv9 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
-    conv9 = Conv2D(16, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
-    ## conv10 = Conv2D(,50, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
-    conv10 = Conv2D(label_nums, 1, activation='softmax')(conv9)
-    #conv10 = Conv2D(30, 1, activation='relu', padding='same', kernel_initializer='he_normal')(conv9)
-    #conv11 = core.Reshape((30,160,224))(conv10)
-    #conv12 = core.Permute((2, 3, 1))(conv11)
+    conv3 = Conv3D(16, 3, padding='same', kernel_initializer='he_normal')(maxp1)
+    batc3 = BatchNormalization(axis=-1)(conv3)
+    acti3 = Activation('relu')(batc3)
+    conv4 = Conv3D(32, 3, padding='same', kernel_initializer='he_normal')(acti3)
+    batc4 = BatchNormalization(axis=-1)(conv4)
+    acti4 = Activation('relu')(batc4)
+    maxp2 = MaxPool3D(2)(acti4)
 
 
-    #conv13 = core.Activation('softmax')(conv12)
-    model = Model(input=inputs, output=conv10)
+    conv5 = Conv3D(32, 3, padding='same', kernel_initializer='he_normal')(maxp2)
+    batc5 = BatchNormalization(axis=-1)(conv5)
+    acti5 = Activation('relu')(batc5)
+    conv6 = Conv3D(64, 3, padding='same', kernel_initializer='he_normal')(acti5)
+    batc6 = BatchNormalization(axis=-1)(conv6)
+    acti6 = Activation('relu')(batc6)
+    maxp3 = MaxPool3D(2)(acti6)
 
-    model.compile(optimizer=Adam(lr=1e-4), loss='categorical_crossentropy', metrics=['accuracy'])
+    conv7 = Conv3D(64, 3, padding='same', kernel_initializer='he_normal')(maxp3)
+    batc7 = BatchNormalization(axis=-1)(conv7)
+    acti7 = Activation('relu')(batc7)
+    conv8 = Conv3D(128, 3, padding='same', kernel_initializer='he_normal')(acti7)
+    batc8 = BatchNormalization(axis=-1)(conv8)
+    acti8 = Activation('relu')(batc8)
 
-    # model.summary()
 
-    if (pretrained_weights):
-        model.load_weights(pretrained_weights)
+    '''upsample'''
+    upsa1 = UpSampling3D(2)(acti8)
+    # print('upsam1 shape: ', upsam1.shape)
+    merg1 = Concatenate(axis=-1)([conv6, upsa1])
+    conv9 = Conv3D(64, 3, padding='same', kernel_initializer='he_normal')(merg1)
+    batc9 = BatchNormalization(axis=-1)(conv9)
+    acti9 = Activation('relu')(batc9)
+    conv10 = Conv3D(64, 3, padding='same', kernel_initializer='he_normal')(acti9)
+    batc10 = BatchNormalization(axis=-1)(conv10)
+    acti10 = Activation('relu')(batc10)
+
+    upsa2 = UpSampling3D(2)(acti10)
+    merg2 = Concatenate(axis=-1)([conv4, upsa2])
+    conv11 = Conv3D(32, 3, padding='same', kernel_initializer='he_normal')(merg2)
+    batc11 = BatchNormalization(axis=-1)(conv11)
+    acti11 = Activation('relu')(batc11)
+    conv12 = Conv3D(32, 3, padding='same', kernel_initializer='he_normal')(acti11)
+    batc12 = BatchNormalization(axis=-1)(conv12)
+    acti12 = Activation('relu')(batc12)
+
+    upsa3 = UpSampling3D(2)(acti12)
+    merg3 = Concatenate(axis=-1)([conv2, upsa3])
+    conv13 = Conv3D(16, 3, padding='same', kernel_initializer='he_normal')(merg3)
+    batc13 = BatchNormalization(axis=-1)(conv13)
+    acti13 = Activation('relu')(batc13)
+    conv14 = Conv3D(16, 3, padding='same', kernel_initializer='he_normal')(acti13)
+    convol = Conv3D(1, 1, activation='sigmoid')(conv14)
+
+
+    model = Model(inputs=inputs, outputs=convol)
+    model.compile(optimizer=Adam(lr=lr), loss=dice_coef_loss, metrics=[dice_coef])
 
     return model
-
