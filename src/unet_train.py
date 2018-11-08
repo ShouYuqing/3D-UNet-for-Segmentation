@@ -42,8 +42,8 @@ for i in range(0,lenn):
     print(st.strip())
     #train_add = np.load(st.strip())
     X_vol, X_seg = datagenerators.load_example_by_name(
-        '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/vols/' + str(st.strip()),
-        '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/labels/' + str(st.strip()))
+        '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/vols/' + st.strip(),
+        '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/labels/' + st.strip())
     #train_add = np.reshape(train_add,(1,)+train_add.shape+(1,))
     vol_list.append(X_vol)
     seg_list.append(X_seg)
