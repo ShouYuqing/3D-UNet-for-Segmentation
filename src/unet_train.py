@@ -47,6 +47,9 @@ for i in range(0,lenn):
     vol_list.append(X_vol)
     seg_list.append(X_seg)
 
+# get label
+labels = sio.loadmat('../data/labels.mat')['labels'][0]
+
 # get data patch
 
 
