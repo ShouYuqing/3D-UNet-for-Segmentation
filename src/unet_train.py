@@ -51,5 +51,8 @@ for i in range(0,lenn):
 labels = sio.loadmat('../data/labels.mat')['labels'][0]
 
 # get data patch
+#vol_patch = genera.patch(X_vol, patch_size = [64,64,64])
+#seg_patch = genera.patch(X_seg, patch_size = [64,64,64])
 
-
+for vol in genera.patch(X_vol, patch_size = [64,64,64]):
+    for seg in genera.patch(X_seg, patch_size = [64,64,64]):
