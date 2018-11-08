@@ -39,11 +39,12 @@ vol_list = list() # list of volume data
 seg_list = list() # list of segmentation data
 for i in range(0,lenn):
     st = train_strings[i]
-    print(st.strip())
+    #print(st.strip())
+    vol_dir = '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/vols/' + st.strip()
+    seg_dir = '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/labels/' + st.strip()
+    print(vol_dir)
     #train_add = np.load(st.strip())
-    X_vol, X_seg = datagenerators.load_example_by_name(
-        '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/vols/' + st.strip(),
-        '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/labels/' + st.strip())
+    X_vol, X_seg = datagenerators.load_example_by_name(vol_dir, seg_dir)
     #train_add = np.reshape(train_add,(1,)+train_add.shape+(1,))
     vol_list.append(X_vol)
     seg_list.append(X_seg)
