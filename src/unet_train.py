@@ -50,9 +50,15 @@ for i in range(0,lenn):
 # get label
 labels = sio.loadmat('../data/labels.mat')['labels'][0]
 
-# get data patch
+# get data patch & training model
 #vol_patch = genera.patch(X_vol, patch_size = [64,64,64])
 #seg_patch = genera.patch(X_seg, patch_size = [64,64,64])
+iter_times = lenn
+#for i in range(0, iter_times):
+for i in range(0, 1):
+    rand_num = random.randint(0, 18)
+    X_vol = vol_list[rand_num]
+    X_seg = seg_list[rand_num]
+    for [vol,seg] in [genera.patch(X_vol, patch_size = [64,64,64]), genera.patch(X_seg, patch_size = [64,64,64])]:
+        print(vol.size)
 
-for vol in genera.patch(X_vol, patch_size = [64,64,64]):
-    for seg in genera.patch(X_seg, patch_size = [64,64,64]):
