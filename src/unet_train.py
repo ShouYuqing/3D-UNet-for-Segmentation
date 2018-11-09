@@ -39,7 +39,7 @@ vol_list = list() # list of volume data
 seg_list = list() # list of segmentation data
 for i in range(0,lenn):
     st = train_strings[i]
-    #print(st.strip())
+    print(st.strip())
     vol_dir = '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/vols/' + st.strip()
     seg_dir = '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/labels/' + st.strip()
     #print(vol_dir)
