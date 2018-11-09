@@ -39,7 +39,6 @@ vol_list = list() # list of volume data
 seg_list = list() # list of segmentation data
 for i in range(0,lenn):
     st = train_strings[i].strip()
-    print(st)
     vol_dir = '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/vols/' + st
     seg_dir = '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/labels/' + st
     #print(vol_dir)
@@ -61,6 +60,6 @@ for i in range(0, 1):
     rand_num = random.randint(0, 18)
     X_vol = vol_list[rand_num]
     X_seg = seg_list[rand_num]
-    for [vol,seg] in [genera.patch(X_vol, patch_size = [64,64,64]), genera.patch(X_seg, patch_size = [64,64,64])]:
+    for [vol,seg] in [genera.patch(X_vol, patch_size = [64,64,64],patch_stride=32), genera.patch(X_seg, patch_size = [64,64,64],patch_stride=32)]:
         print(vol.size)
 
