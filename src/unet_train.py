@@ -62,6 +62,7 @@ for i in range(0, 1):
     X_seg = seg_list[rand_num]
     vol_p = genera.patch(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], patch_stride=32)
     seg_p = genera.patch(X_seg[0, :, :, :, 0], patch_size=[64, 64, 64], patch_stride=32)
+    print(vol_p.shape)
     #for [vol,seg] in [genera.patch(X_vol[0,:,:,:,0], patch_size = [64,64,64],patch_stride=32), genera.patch(X_seg[0,:,:,:,0], patch_size = [64,64,64],patch_stride=32)]:
     #   print(vol.size)
 
