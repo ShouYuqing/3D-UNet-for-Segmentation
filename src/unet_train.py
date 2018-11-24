@@ -26,6 +26,7 @@ sys.path.append('../ext/medipy-lib')
 sys.path.append('../ext/pynd-lib')
 sys.path.append('../ext/pytools-lib')
 #import losses
+import pytools.patchlib as palib
 import neuron.generators as genera
 import datagenerators
 #import my library
