@@ -64,6 +64,6 @@ for i in range(0, 1):
     #    print(i.shape)
     seg = genera.patch(X_seg[0, :, :, :, 0], patch_size=[64, 64, 64], patch_stride=32)
     #print(vol_p.shape)
-    for vol in [genera.patch(X_vol[0,:,:,:,0], patch_size = [64,64,64],patch_stride=32), genera.patch(X_seg[0,:,:,:,0], patch_size = [64,64,64],patch_stride=32)]:
+    for vol,seg in [genera.patch(X_vol[0,:,:,:,0], patch_size = [64,64,64],patch_stride=32), genera.patch(X_seg[0,:,:,:,0], patch_size = [64,64,64],patch_stride=32)]:
        print(vol.size)
 
