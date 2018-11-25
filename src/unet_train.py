@@ -40,7 +40,7 @@ class LossHistory(Callback):
         self.losses = []
 
     def on_batch_end(self, batch, logs={}):
-        self.losses.append(logs.get('acc'))
+        self.losses.append(logs.get('dice_coef'))
 history = LossHistory()
 
 # dir
@@ -76,9 +76,9 @@ iter_times = lenn
 model = un.unet(label_num=label_num+1)
 
 for i in range(0, 5):
-    rand_num = random.randint(0, 18)
-    X_vol = vol_list[rand_num]
-    X_seg = seg_list[rand_num]
+    #rand_num = random.randint(0, 18)
+    X_vol = vol_list[i]
+    X_seg = seg_list[i]
     for vol,arg in palib.patch_gen(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], stride=32, nargout=0):
     #for vol in genera.patch(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], patch_stride=32):
         arg_arr = np.array(arg)
