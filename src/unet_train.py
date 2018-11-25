@@ -112,7 +112,7 @@ for i in range(0, 19):
         #step = step + 1
 
 #model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
-print(A)
+print(history.accuracy)
 
 
         #print(seg.shape)
