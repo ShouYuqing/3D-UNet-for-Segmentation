@@ -104,7 +104,7 @@ for i in range(0, 4):
         #a = model.fit(vol, seg, callbacks=[history])
         print(a.history)
         #b = float(a.history['dice_coeff'][0])
-        A.append(b)
+        #A.append(b)
         # save model
         #if step % model_save_iter == 0:
         #    model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
