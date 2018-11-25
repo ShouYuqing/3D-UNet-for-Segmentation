@@ -70,6 +70,7 @@ for i in range(0, 1):
         arg_arr = np.array(arg)
         # get segmentation data
         seg=X_seg[:,arg_arr[0], arg_arr[1], arg_arr[2],:]
+        seg = genera._label_to_one_hot(seg, labels=labels)
         print(seg.shape)
         # adjust data
         vol = np.reshape(vol, (1,) + vol.shape + (1,))
