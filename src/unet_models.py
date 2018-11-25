@@ -1,7 +1,7 @@
 from keras.layers import Input, BatchNormalization, MaxPool3D, Conv3D, UpSampling3D, Concatenate, Activation
 from keras.models import Model
 from keras.optimizers import Adam
-from dice import *
+
 
 def unet(label_num=1, pretrained_weights=None):
 
