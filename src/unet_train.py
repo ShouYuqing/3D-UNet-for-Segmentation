@@ -34,6 +34,15 @@ import unet_models as un
 #import my library
 #import unet_models as un
 
+# define callback function
+class LossHistory(keras.callbacks.Callback):
+    def on_train_begin(self, logs={}):
+        self.losses = []
+
+    def on_batch_end(self, batch, logs={}):
+        self.losses.append(logs.get('metrics'))
+history = LearningRateScheduler()
+
 # dir
 model_name = 'unet1'
 m_dir='/home/ys895/unet/' +model_name + '.h5'
@@ -90,7 +99,7 @@ for i in range(0, 5):
 
         # train
         print('volume ' + str(i) + 'training...')
-        model.fit(vol, seg)
+        model.fit(vol, seg, callbacks=[history])
 
         # save model
         #if step % model_save_iter == 0:
