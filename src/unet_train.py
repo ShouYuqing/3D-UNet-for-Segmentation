@@ -74,7 +74,7 @@ for i in range(0, 1):
         # adjust data
         vol = np.reshape(vol, (1,) + vol.shape + (1,))
         #seg = np.reshape(seg, (1,) + vol.shape + (1,))
-        # adjust segmentation data into  one-hot encoding
+        # relabel segmentation data into  one-hot encoding
 
 
         # train
