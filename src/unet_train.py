@@ -42,6 +42,7 @@ class LossHistory(Callback):
     def on_epoch_end(self, batch, logs={}):
         self.accuracy.append(logs.get('dice_coeff'))
 history = LossHistory()
+A = []
 
 # dir
 model_name = 'unet1'
@@ -99,15 +100,17 @@ for i in range(0, 4):
 
         # train
         print('volume ' + str(i) + 'training...')
-        model.fit(vol, seg, callbacks=[history])
-
+        a = model.fit(vol, seg)
+        #a = model.fit(vol, seg, callbacks=[history])
+        b = float(a.history['dice_coeff'][0])
+        A.append(b)
         # save model
         #if step % model_save_iter == 0:
         #    model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
         #step = step + 1
 
 #model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
-
+print(A)
 
 
         #print(seg.shape)
