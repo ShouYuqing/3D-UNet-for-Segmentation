@@ -76,11 +76,12 @@ iter_times = lenn
 #model = un.unet(pretrained_weights = m_dir, label_num=label_num)
 model = un.unet(label_num=label_num+1)
 
-for i in range(0, 2):
+for i in range(0, 1):
     #rand_num = random.randint(0, 18)
     ii = i%19
     X_vol = vol_list[ii]
     X_seg = seg_list[ii]
+    cnt = 0
     for vol,arg in palib.patch_gen(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], stride=32, nargout=0):
     #for vol in genera.patch(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], patch_stride=32):
         arg_arr = np.array(arg)
@@ -105,12 +106,14 @@ for i in range(0, 2):
         #a = model.fit(vol, seg, callbacks=[history])
         #print(a.history)
         b = float(a.history['dice_coef'][0])
-        A.append(b)
+        if(cnt%10==0):
+            A.append(b)
         # save model
         #if step % model_save_iter == 0:
         #    model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
         #step = step + 1
-
+        cnt = cnt + 1
+        print(cnt)
 #model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
 #print(len(history.dice))
 print(A)
