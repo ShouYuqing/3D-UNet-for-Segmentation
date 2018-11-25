@@ -70,12 +70,13 @@ for i in range(0, 1):
     #for vol in genera.patch(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], patch_stride=32):
         arg_arr = np.array(arg)
         # get segmentation data
-        seg=X_seg[:,arg_arr[0], arg_arr[1], arg_arr[2],:]
+        seg=X_seg[0,arg_arr[0], arg_arr[1], arg_arr[2],0]
         seg = genera._relabel(seg, labels=labels)
         print(seg.shape)
         seg = seg.astype(np.int64)
         seg = metrics._label_to_one_hot(seg, nb_labels=31)
         print(seg.shape)
+        seg = seg.reshape((1,)+ seg.shape +(1,))
         # adjust data
         vol = np.reshape(vol, (1,) + vol.shape + (1,))
         #seg = np.reshape(seg, (1,) + vol.shape + (1,))
