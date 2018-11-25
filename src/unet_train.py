@@ -13,7 +13,7 @@ import tensorflow as tf
 from keras.models import *
 from keras.layers import *
 from keras.optimizers import *
-from keras.callbacks import ModelCheckpoint, LearningRateScheduler
+from keras.callbacks import ModelCheckpoint, LearningRateScheduler, Callback
 from keras import backend as keras
 from keras.backend.tensorflow_backend import set_session
 from keras.optimizers import Adam
@@ -35,7 +35,7 @@ import unet_models as un
 #import unet_models as un
 
 # define callback function
-class LossHistory(keras.callbacks.Callback):
+class LossHistory(Callback):
     def on_train_begin(self, logs={}):
         self.losses = []
 
