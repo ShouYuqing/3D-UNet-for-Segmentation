@@ -40,7 +40,7 @@ class LossHistory(Callback):
         self.dice = []
 
     def on_epoch_end(self, batch, logs={}):
-        self.dice = dice.append(logs.get('dice_coef'))
+        self.dice.append(logs.get('dice_coef'))
 history = LossHistory()
 A = []
 
