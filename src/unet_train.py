@@ -37,10 +37,10 @@ import unet_models as un
 # define callback function
 class LossHistory(Callback):
     def on_train_begin(self, logs={}):
-        self.losses = []
+        self.accuracy = []
 
-    def on_batch_end(self, batch, logs={}):
-        self.losses.append(logs.get('dice_coef'))
+    def on_epoch_end(self, batch, logs={}):
+        self.accuracy.append(logs.get(dice_coef))
 history = LossHistory()
 
 # dir
@@ -75,7 +75,7 @@ iter_times = lenn
 #model = un.unet(pretrained_weights = m_dir, label_num=label_num)
 model = un.unet(label_num=label_num+1)
 
-for i in range(0, 19):
+for i in range(0, 4):
     #rand_num = random.randint(0, 18)
     X_vol = vol_list[i]
     X_seg = seg_list[i]
