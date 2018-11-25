@@ -74,7 +74,7 @@ for i in range(0, 1):
         seg = genera._relabel(seg, labels=labels)
         print(seg.shape)
         seg = seg.astype(np.int64)
-        seg = genera._categorical_prep(seg, nb_labels_reshape = 31, keep_vol_size = False, patch_size = [64,64,64])
+        seg = genera._categorical_prep(seg, nb_labels_reshape = 31, keep_vol_size = True, patch_size = [64,64,64])
         #seg = metrics._label_to_one_hot(seg, nb_labels=31)
         print(seg.shape)
         #seg = seg.reshape((1,)+ seg.shape +(1,))
