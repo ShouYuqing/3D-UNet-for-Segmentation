@@ -113,6 +113,7 @@ for i in range(0, 1):
 
         # save log
         if(cnt%120==0):
+            print(cnt)
             A.append(b)
 
 
