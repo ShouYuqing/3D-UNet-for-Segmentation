@@ -101,19 +101,19 @@ for i in range(0, 2):
 
         # train
         print('volume ' + str(i) + 'training...')
-        #a = model.fit(vol, seg)
-        a = model.fit(vol, seg, callbacks=[history])
+        a = model.fit(vol, seg)
+        #a = model.fit(vol, seg, callbacks=[history])
         #print(a.history)
-        #b = float(a.history['dice_coeff'][0])
-        #A.append(b)
+        b = float(a.history['dice_coef'][0])
+        A.append(b)
         # save model
         #if step % model_save_iter == 0:
         #    model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
         #step = step + 1
 
 #model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
-print(len(history.dice))
-
+#print(len(history.dice))
+print(A)
 
         #print(seg.shape)
 
