@@ -65,7 +65,7 @@ for i in range(0, 1):
     rand_num = random.randint(0, 18)
     X_vol = vol_list[rand_num]
     X_seg = seg_list[rand_num]
-    for vol,arg in palib.patch_gen(X_vol[:, :, :, :, :], patch_size=[64, 64, 64], stride=32, nargout=0):
+    for vol,arg in palib.patch_gen(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], stride=32, nargout=0):
     #for vol in genera.patch(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], patch_stride=32):
         print(vol.shape)
         arg_arr = np.array(arg)
@@ -73,7 +73,7 @@ for i in range(0, 1):
         seg=X_seg[:,arg_arr[0], arg_arr[1], arg_arr[2],:]
         print(seg.shape)
         # adjust data
-        #vol = np.reshape(vol, (1,) + vol.shape + (1,))
+        vol = np.reshape(vol, (1,) + vol.shape + (1,))
         #seg = np.reshape(seg, (1,) + vol.shape + (1,))
         # train
         print('volume ' + str(i) + 'training...')
