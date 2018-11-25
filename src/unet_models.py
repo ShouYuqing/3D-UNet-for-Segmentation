@@ -1,7 +1,7 @@
 from keras.layers import Input, BatchNormalization, MaxPool3D, Conv3D, UpSampling3D, Concatenate, Activation
 from keras.models import Model
 from keras.optimizers import Adam
-
+from losses import *
 
 def unet(label_num=1, pretrained_weights=None):
 
@@ -73,7 +73,7 @@ def unet(label_num=1, pretrained_weights=None):
 
     model = Model(inputs=inputs, outputs=convol)
     #model.compile(optimizer=Adam(lr=1e-4), loss=dice_coef_loss, metrics=[dice_coef])
-    model.compile(optimizer=Adam(lr=1e-4), loss=diceLoss, metrics=[dice_coef])
+    model.compile(optimizer=Adam(lr=1e-4), loss=losses.diceLoss, metrics=[dice_coef])
     #model.compile(optimizer=Adam(lr=1e-4), loss='categorical_crossentropy', metrics=['accuracy'])
 
     # model.summary()
