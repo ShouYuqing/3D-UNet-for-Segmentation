@@ -84,7 +84,7 @@ for i in range(0, 1):
 
         # train
         print('volume ' + str(i) + 'training...')
-        model.fit(vol, seg, batch_size=1)
+        model.fit(vol, seg)
 
         # save model
         #if step % model_save_iter == 0:
