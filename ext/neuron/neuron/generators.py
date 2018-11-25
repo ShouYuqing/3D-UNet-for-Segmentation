@@ -1323,8 +1323,10 @@ def _load_medical_volume(filename, ext, verbose=False):
     return vol_data
 
 
-def _categorical_prep(vol_data, nb_labels_reshape, keep_vol_size, patch_size):
+def _categorical_prep(vol_data, nb_labels_reshape, keep_vol_size):
+    # path size can be added into the function
 
+    
     if nb_labels_reshape > 1:
         
         lpatch = _to_categorical(vol_data, nb_labels_reshape, keep_vol_size)
