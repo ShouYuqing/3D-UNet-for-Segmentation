@@ -34,6 +34,10 @@ import unet_models as un
 #import my library
 #import unet_models as un
 
+# dir
+model_name = 'unet1'
+m_dir='/home/ys895/unet/' +model_name + '.h5'
+
 # read train data
 train_file = open('../data/train_data.txt')
 train_strings = train_file.readlines()
@@ -62,7 +66,7 @@ iter_times = lenn
 #model = un.unet(pretrained_weights = m_dir, label_num=label_num)
 model = un.unet(label_num=label_num+1)
 
-for i in range(0, 1):
+for i in range(0, 5):
     rand_num = random.randint(0, 18)
     X_vol = vol_list[rand_num]
     X_seg = seg_list[rand_num]
@@ -72,11 +76,11 @@ for i in range(0, 1):
         # get segmentation data
         seg=X_seg[0,arg_arr[0], arg_arr[1], arg_arr[2],0]
         seg = genera._relabel(seg, labels=labels)
-        print(seg.shape)
+        #print(seg.shape)
         seg = seg.astype(np.int64)
         seg = genera._categorical_prep(seg, nb_labels_reshape = 31, keep_vol_size = True, patch_size = [64,64,64])
         #seg = metrics._label_to_one_hot(seg, nb_labels=31)
-        print(seg.shape)
+        #print(seg.shape)
         #seg = seg.reshape((1,)+ seg.shape +(1,))
         # adjust data
         vol = np.reshape(vol, (1,) + vol.shape + (1,))
@@ -93,7 +97,7 @@ for i in range(0, 1):
         #    model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
         #step = step + 1
 
-
+model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
 
 
 
