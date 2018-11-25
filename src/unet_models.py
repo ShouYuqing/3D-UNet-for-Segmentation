@@ -68,7 +68,7 @@ def unet(lr):
     batc13 = BatchNormalization(axis=-1)(conv13)
     acti13 = Activation('relu')(batc13)
     conv14 = Conv3D(16, 3, padding='same', kernel_initializer='he_normal')(acti13)
-    convol = Conv3D(1, 1, activation='sigmoid')(conv14)
+    convol = Conv3D(1, 1, activation='softmax')(conv14)
 
 
     model = Model(inputs=inputs, outputs=convol)
