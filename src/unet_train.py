@@ -41,7 +41,7 @@ class LossHistory(Callback):
 
     def on_batch_end(self, batch, logs={}):
         self.losses.append(logs.get('metrics'))
-history = LearningRateScheduler()
+history = LossHistory()
 
 # dir
 model_name = 'unet1'
