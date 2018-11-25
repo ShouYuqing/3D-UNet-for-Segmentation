@@ -70,6 +70,9 @@ for i in range(0, 1):
         arg_arr = np.array(arg)
         # get segmentation data
         seg=X_seg[0,arg_arr[0], arg_arr[1], arg_arr[2],0]
+        # adjust data
+        vol = vol.reshape(vol, (1,) + vol.shape + (1,))
+        seg = seg.reshape(seg, (1,) + vol.shape + (1,))
         # train
         print('volume ' + str(i) + 'training...')
         model.fit(vol, seg, batch_size=1)
