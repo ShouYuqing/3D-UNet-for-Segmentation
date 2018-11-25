@@ -81,7 +81,7 @@ model = un.unet(label_num=label_num+1)
 
 # count the step
 cnt = 1
-for i in range(0, 1):
+for i in range(0, 19):
     #rand_num = random.randint(0, 18)
     ii = i%19
     X_vol = vol_list[ii]
