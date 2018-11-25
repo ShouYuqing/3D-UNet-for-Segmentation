@@ -28,6 +28,7 @@ sys.path.append('../ext/pytools-lib')
 #import losses
 import pytools.patchlib as palib
 import neuron.generators as genera
+import neuron.metrics as metrics
 import datagenerators
 import unet_models as un
 #import my library
@@ -70,7 +71,8 @@ for i in range(0, 1):
         arg_arr = np.array(arg)
         # get segmentation data
         seg=X_seg[:,arg_arr[0], arg_arr[1], arg_arr[2],:]
-        seg = genera._label_to_one_hot(seg, labels=labels)
+        seg = genera._relabel(seg, labels=labels)
+        seg = metrics_label_to_one_hot(seg, nb_labels=31)
         print(seg.shape)
         # adjust data
         vol = np.reshape(vol, (1,) + vol.shape + (1,))
