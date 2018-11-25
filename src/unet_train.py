@@ -72,8 +72,8 @@ for i in range(0, 1):
         # get segmentation data
         seg=X_seg[:,arg_arr[0], arg_arr[1], arg_arr[2],:]
         seg = genera._relabel(seg, labels=labels)
+        print(seg.shape)
         seg = seg.astype(np.int64)
-        #seg = int64(seg)
         seg = metrics._label_to_one_hot(seg, nb_labels=31)
         print(seg.shape)
         # adjust data
