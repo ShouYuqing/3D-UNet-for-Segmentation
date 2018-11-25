@@ -102,7 +102,8 @@ for i in range(0, 4):
         print('volume ' + str(i) + 'training...')
         a = model.fit(vol, seg)
         #a = model.fit(vol, seg, callbacks=[history])
-        b = float(a.history['dice_coeff'][0])
+        print(A.history)
+        #b = float(a.history['dice_coeff'][0])
         A.append(b)
         # save model
         #if step % model_save_iter == 0:
