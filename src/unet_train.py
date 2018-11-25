@@ -40,7 +40,7 @@ class LossHistory(Callback):
         self.accuracy = []
 
     def on_epoch_end(self, batch, logs={}):
-        self.accuracy.append(logs.get(dice_coef))
+        self.accuracy.append(logs.get('dice_coeff'))
 history = LossHistory()
 
 # dir
