@@ -66,6 +66,7 @@ for i in range(0, 1):
         print(vol.shape)
         arg_arr=np.array(arg)
         #print(arg.shape)
+        print(arg_arr)
         print(arg_arr.shape)
     #seg = genera.patch(X_seg[0, :, :, :, 0], patch_size=[64, 64, 64], patch_stride=32)
     #print(vol_p.shape)
