@@ -40,7 +40,7 @@ class LossHistory(Callback):
         self.losses = []
 
     def on_batch_end(self, batch, logs={}):
-        self.losses.append(logs.get('metrics'))
+        self.losses.append(logs.get('acc'))
 history = LossHistory()
 
 # dir
