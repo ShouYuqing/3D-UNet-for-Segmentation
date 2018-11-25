@@ -3,7 +3,7 @@ from keras.models import Model
 from keras.optimizers import Adam
 from dice import *
 
-def unet(lr):
+def unet(label_num=1, pretrained_weights=None):
 
     inputs = Input((64, 64, 64, 1))
 
@@ -68,10 +68,17 @@ def unet(lr):
     batc13 = BatchNormalization(axis=-1)(conv13)
     acti13 = Activation('relu')(batc13)
     conv14 = Conv3D(16, 3, padding='same', kernel_initializer='he_normal')(acti13)
-    convol = Conv3D(1, 1, activation='softmax')(conv14)
+    convol = Conv3D(label_num, 1, activation='softmax')(conv14)
 
 
     model = Model(inputs=inputs, outputs=convol)
-    model.compile(optimizer=Adam(lr=lr), loss=dice_coef_loss, metrics=[dice_coef])
+    #model.compile(optimizer=Adam(lr=1e-4), loss=dice_coef_loss, metrics=[dice_coef])
+    model.compile(optimizer=Adam(lr=1e-4), loss=diceLoss, metrics=[dice_coef])
+    #model.compile(optimizer=Adam(lr=1e-4), loss='categorical_crossentropy', metrics=['accuracy'])
+
+    # model.summary()
+
+    if (pretrained_weights):
+        model.load_weights(pretrained_weights)
 
     return model

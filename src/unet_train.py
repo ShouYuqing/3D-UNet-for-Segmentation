@@ -29,6 +29,7 @@ sys.path.append('../ext/pytools-lib')
 import pytools.patchlib as palib
 import neuron.generators as genera
 import datagenerators
+import unet_models as un
 #import my library
 #import unet_models as un
 
@@ -51,12 +52,15 @@ for i in range(0,lenn):
 
 # get label
 labels = sio.loadmat('../data/labels.mat')['labels'][0]
-
+label_num = len(labels)
 # get data patch & training model
 #vol_patch = genera.patch(X_vol, patch_size = [64,64,64])
 #seg_patch = genera.patch(X_seg, patch_size = [64,64,64])
 iter_times = lenn
-#for i in range(0, iter_times):
+# define model of unet
+#model = un.unet(pretrained_weights = m_dir, label_num=label_num)
+model = un.unet(label_num=label_num)
+
 for i in range(0, 1):
     rand_num = random.randint(0, 18)
     X_vol = vol_list[rand_num]
@@ -64,8 +68,21 @@ for i in range(0, 1):
     for vol,arg in palib.patch_gen(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], stride=32, nargout=0):
     #for vol in genera.patch(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], patch_stride=32):
         arg_arr = np.array(arg)
-        # get volume data
+        # get segmentation data
         seg=X_seg[0,arg_arr[0], arg_arr[1], arg_arr[2],0]
+        # train
+        print('volume ' + str(i) + 'training...')
+        model.fit(vol, seg, batch_size=1)
+
+        # save model
+        #if step % model_save_iter == 0:
+        #    model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
+        #step = step + 1
+
+
+
+
+
         #print(seg.shape)
 
         #print(arg.shape)
