@@ -35,7 +35,8 @@ import unet_models as un
 #import unet_models as un
 
 # define some parameters
-model_save_iter = 10
+model_save_iter = 50
+pre_num = 0
 
 # define callback function
 class LossHistory(Callback):
@@ -48,8 +49,8 @@ history = LossHistory()
 A = []
 
 # dir
-model_name = 'unet1'
-m_dir='/home/ys895/unet/' +model_name + '.h5'
+m_dir='/home/ys895/unet/'
+
 
 # read train data
 train_file = open('../data/train_data.txt')
@@ -113,18 +114,18 @@ for i in range(0, 19):
 
         # save log
         if(cnt%120==0):
-            print(cnt)
+            #print(cnt)
             A.append(b)
 
 
         # save model
-        #if  cnt% model_save_iter == 0:
-        #    model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
-        #step = step + 1
-        cnt = cnt + 1
+            if((cnt/120)% model_save_iter == 0):
+                model.save(os.path.join(model_dir, 'iter' + str(pre_num + cnt/120) + '.h5'))
+            cnt = cnt + 1
         #print(cnt)
 #model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
 #print(len(history.dice))
+
 print(A)
 
         #print(seg.shape)
