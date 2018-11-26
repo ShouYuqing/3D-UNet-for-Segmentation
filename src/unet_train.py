@@ -82,13 +82,12 @@ model = un.unet(label_num=label_num+1)
 
 # count the step
 cnt = 1
-for i in range(0, 19):
+for i in range(0, 19*3):
     #rand_num = random.randint(0, 18)
     ii = i%19
     X_vol = vol_list[ii]
     X_seg = seg_list[ii]
     for vol,arg in palib.patch_gen(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], stride=32, nargout=0):
-    #for vol in genera.patch(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], patch_stride=32):
         arg_arr = np.array(arg)
         # get segmentation data
         seg=X_seg[0,arg_arr[0], arg_arr[1], arg_arr[2],0]
@@ -114,14 +113,12 @@ for i in range(0, 19):
 
         # save log
         if(cnt%120==0):
-            #print(cnt)
             A.append(b)
-
-
-        # save model
+            # save model
             if((cnt/120)% model_save_iter == 0):
                 model.save(os.path.join(model_dir, 'iter' + str(pre_num + cnt/120) + '.h5'))
-            cnt = cnt + 1
+
+        cnt = cnt + 1
         #print(cnt)
 #model.save(os.path.join(model_dir, 'slice' + str(i) + '_' + str(pre_num + step) + '.h5'))
 #print(len(history.dice))

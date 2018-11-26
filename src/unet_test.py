@@ -34,10 +34,22 @@ import unet_models as un
 
 
 # read model
+test_iter =
+m_dir = '/home/ys895/unet/iter' + str(test_iter) + '.h5'
 
-
-# read data
-
+# read validation data
+valid_file = open('../data/validate_data.txt')
+valid_strings = valif_file.readlines()
+lenn = 5
+vol_list = list() # list of volume data
+seg_list = list() # list of segmentation data
+for i in range(0,lenn):
+    st = train_strings[i].strip()
+    vol_dir = '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/vols/' + st
+    seg_dir = '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/labels/' + st
+    X_vol, X_seg = datagenerators.load_example_by_name(vol_dir, seg_dir)
+    vol_list.append(X_vol)
+    seg_list.append(X_seg)
 
 # test the data on the model
 
