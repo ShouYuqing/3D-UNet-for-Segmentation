@@ -116,7 +116,7 @@ for i in range(0, 19*3):
             A.append(b)
             # save model
             if((cnt/120)% model_save_iter == 0):
-                model.save(os.path.join(model_dir, 'iter' + str(pre_num + int(cnt/120)) + '.h5'))
+                model.save(os.path.join(m_dir, 'iter' + str(pre_num + int(cnt/120)) + '.h5'))
 
         cnt = cnt + 1
         #print(cnt)
