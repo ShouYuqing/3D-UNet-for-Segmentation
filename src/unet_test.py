@@ -34,7 +34,7 @@ import unet_models as un
 
 
 # read model
-test_iter = 50
+test_iter = 100
 m_dir = '/home/ys895/unet/iter' + str(test_iter) + '.h5'
 
 
@@ -54,7 +54,7 @@ for i in range(0,lenn):
 
 # test the data on the model
 cnt = 1
-for i in range(0, 19 * 3):
+for i in range(0, 19 * 10000):
     # rand_num = random.randint(0, 18)
     ii = i % 19
     X_vol = vol_list[ii]
