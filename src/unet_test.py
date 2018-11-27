@@ -93,7 +93,7 @@ for i in range(0, 1):
                  weights=None,
                  input_type='prob',
                  dice_type='hard',
-                 approx_hard_max=False,
+                 approx_hard_max=True,
                  vox_weights=None,
                  crop_indices=None,
                  area_reg=0.1).dice(seg,pred)
