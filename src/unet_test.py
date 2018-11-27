@@ -87,7 +87,7 @@ for i in range(0, 1):
         # adjust data
         vol = np.reshape(vol, (1,) + vol.shape + (1,))
         pred = model.predict(vol)
-        print(vol.shape)
+        print(seg.shape)
         print(pred.shape)
         dice_score = metrics.Dice(nb_labels = 30,
                  weights=None,
