@@ -41,6 +41,9 @@ m_dir = '/home/ys895/unet/iter' + str(test_iter) + '.h5'
 model = un.unet(label_num=label_num)
 model.load_weights(m_dir)
 
+# get label
+labels = sio.loadmat('../data/labels.mat')['labels'][0]
+
 # read validation data
 valid_file = open('../data/validate_data.txt')
 valid_strings = valid_file.readlines()
