@@ -87,8 +87,17 @@ for i in range(0, 1):
         # adjust data
         vol = np.reshape(vol, (1,) + vol.shape + (1,))
         pred = model.predict(vol)
-        vals, _ = dice(pred, seg, nargout=2)
-        sum_dice = sum_dice + np.mean(vals)
-        print(np.mean(vals), np.std(vals))
+        dice_score = Dice(nb_labels = 30,
+                 weights=None,
+                 input_type='prob',
+                 dice_type='hard',
+                 approx_hard_max=True,
+                 vox_weights=None,
+                 crop_indices=None,
+                 area_reg=0.1).dice(seg,pred)
+        sum_dice = sum_dice + dice_score
+        #vals, _ = dice(pred, seg, nargout=2)
+        #sum_dice = sum_dice + np.mean(vals)
+        #print(np.mean(vals), np.std(vals))
 #
 print(sum_dice/cnt2)
