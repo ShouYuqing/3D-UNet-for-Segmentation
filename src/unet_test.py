@@ -36,7 +36,8 @@ from medipy.metrics import dice
 # read model
 test_iter = 50
 m_dir = '/home/ys895/unet/iter' + str(test_iter) + '.h5'
-model = load_model(m_dir)
+model = un.unet(label_num=label_num + 1)
+model.load_weights(m_dir)
 
 # read validation data
 valid_file = open('../data/validate_data.txt')
