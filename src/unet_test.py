@@ -48,7 +48,7 @@ lenn = 5
 vol_list = list() # list of volume data
 seg_list = list() # list of segmentation data
 for i in range(0,lenn):
-    st = train_strings[i].strip()
+    st = valid_strings[i].strip()
     vol_dir = '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/vols/' + st
     seg_dir = '/home/ys895/resize256/resize256-crop_x32/FromEugenio_prep/labels/' + st
     X_vol, X_seg = datagenerators.load_example_by_name(vol_dir, seg_dir)
