@@ -40,7 +40,7 @@ m_dir = '/home/ys895/unet/iter' + str(test_iter) + '.h5'
 
 # read validation data
 valid_file = open('../data/validate_data.txt')
-valid_strings = valif_file.readlines()
+valid_strings = valid_file.readlines()
 lenn = 5
 vol_list = list() # list of volume data
 seg_list = list() # list of segmentation data
@@ -53,8 +53,9 @@ for i in range(0,lenn):
     seg_list.append(X_seg)
 
 # test the data on the model
+# the size of test data is 5
 cnt = 1
-for i in range(0, 19 * 10000):
+for i in range(0, 5):
     # rand_num = random.randint(0, 18)
     ii = i % 19
     X_vol = vol_list[ii]
@@ -64,14 +65,14 @@ for i in range(0, 19 * 10000):
         # get segmentation data
         seg = X_seg[0, arg_arr[0], arg_arr[1], arg_arr[2], 0]
         seg = genera._relabel(seg, labels=labels)
-        # print(seg.shape)
         seg = seg.astype(np.int64)
+        # make the segmentation data into one-hot in order to test it in the model
         seg = genera._categorical_prep(seg, nb_labels_reshape=31, keep_vol_size=True, patch_size=[64, 64, 64])
         # seg = metrics._label_to_one_hot(seg, nb_labels=31)
         # print(seg.shape)
         # seg = seg.reshape((1,)+ seg.shape +(1,))
         # adjust data
         vol = np.reshape(vol, (1,) + vol.shape + (1,))
-
+        pred = model.predict(vol)
 
 #
