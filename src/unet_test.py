@@ -31,12 +31,12 @@ import neuron.generators as genera
 import neuron.metrics as metrics
 import datagenerators
 import unet_models as un
-
+from medipy.metrics import dice
 
 # read model
-test_iter = 100
+test_iter = 50
 m_dir = '/home/ys895/unet/iter' + str(test_iter) + '.h5'
-
+model = load_model(m_dir)
 
 # read validation data
 valid_file = open('../data/validate_data.txt')
@@ -60,19 +60,20 @@ for i in range(0, 5):
     ii = i % 19
     X_vol = vol_list[ii]
     X_seg = seg_list[ii]
-    for vol, arg in palib.patch_gen(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], stride=32, nargout=0):
+    for vol, arg in palib.patch_gen(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], stride=64, nargout=0):
         arg_arr = np.array(arg)
         # get segmentation data
         seg = X_seg[0, arg_arr[0], arg_arr[1], arg_arr[2], 0]
         seg = genera._relabel(seg, labels=labels)
         seg = seg.astype(np.int64)
         # make the segmentation data into one-hot in order to test it in the model
-        seg = genera._categorical_prep(seg, nb_labels_reshape=31, keep_vol_size=True, patch_size=[64, 64, 64])
+        seg = genera._categorical_prep(seg, nb_labels_reshape=30, keep_vol_size=True, patch_size=[64, 64, 64])
         # seg = metrics._label_to_one_hot(seg, nb_labels=31)
         # print(seg.shape)
         # seg = seg.reshape((1,)+ seg.shape +(1,))
         # adjust data
         vol = np.reshape(vol, (1,) + vol.shape + (1,))
         pred = model.predict(vol)
-
+        vals, _ = dice(pred, seg, nargout=2)
+        print(np.mean(vals), np.std(vals))
 #
