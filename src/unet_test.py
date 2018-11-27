@@ -91,11 +91,12 @@ for i in range(0, 1):
                  weights=None,
                  input_type='prob',
                  dice_type='hard',
-                 approx_hard_max=True,
+                 approx_hard_max=False,
                  vox_weights=None,
                  crop_indices=None,
                  area_reg=0.1).dice(seg,pred)
         sum_dice = sum_dice + dice_score
+        print(dice_score)
         #vals, _ = dice(pred, seg, nargout=2)
         #sum_dice = sum_dice + np.mean(vals)
         #print(np.mean(vals), np.std(vals))
