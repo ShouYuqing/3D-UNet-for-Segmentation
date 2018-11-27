@@ -56,12 +56,19 @@ for i in range(0,lenn):
 # test the data on the model
 # the size of test data is 5
 cnt = 1
-for i in range(0, 5):
+for i in range(0, 1):
     # rand_num = random.randint(0, 18)
     ii = i % 19
     X_vol = vol_list[ii]
     X_seg = seg_list[ii]
+
+    sum_dice = 0
+    cnt2 = 0
+
     for vol, arg in palib.patch_gen(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], stride=64, nargout=0):
+
+        cnt2 = cnt2 + 1
+
         arg_arr = np.array(arg)
         # get segmentation data
         seg = X_seg[0, arg_arr[0], arg_arr[1], arg_arr[2], 0]
@@ -76,5 +83,7 @@ for i in range(0, 5):
         vol = np.reshape(vol, (1,) + vol.shape + (1,))
         pred = model.predict(vol)
         vals, _ = dice(pred, seg, nargout=2)
+        sum_dice = sum_dice + np.mean(vals)
         print(np.mean(vals), np.std(vals))
 #
+print(sum_dice/cnt2)
