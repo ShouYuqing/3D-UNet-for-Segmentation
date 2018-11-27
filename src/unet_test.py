@@ -34,6 +34,7 @@ import unet_models as un
 from medipy.metrics import dice
 
 # read model
+label_num = 30
 test_iter = 50
 m_dir = '/home/ys895/unet/iter' + str(test_iter) + '.h5'
 model = un.unet(label_num=label_num + 1)
