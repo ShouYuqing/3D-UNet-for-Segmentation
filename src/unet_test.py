@@ -25,6 +25,7 @@ sys.path.append('../ext/neuron')
 sys.path.append('../ext/medipy-lib')
 sys.path.append('../ext/pynd-lib')
 sys.path.append('../ext/pytools-lib')
+
 #import losses
 import pytools.patchlib as palib
 import neuron.generators as genera
@@ -37,7 +38,7 @@ from medipy.metrics import dice
 label_num = 30
 test_iter = 50
 m_dir = '/home/ys895/unet/iter' + str(test_iter) + '.h5'
-model = un.unet(label_num=label_num + 1)
+model = un.unet(label_num=label_num)
 model.load_weights(m_dir)
 
 # read validation data
