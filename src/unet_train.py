@@ -35,7 +35,7 @@ import unet_models as un
 #import unet_models as un
 
 # define some parameters
-model_save_iter = 50
+model_save_iter = 100
 pre_num = 0
 
 # define callback function
