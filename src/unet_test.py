@@ -90,7 +90,7 @@ for i in range(0, 1):
         vol = vol.astype(np.float64)
         pred = model.predict(vol)
         #pred = pred.astype(np.float64)
-        pred = metrics._label_to_one_hot(np.argmax(pred, axis=-1), 30)
+        pred = genera._categorical_prep(np.argmax(pred, axis=-1), nb_labels_reshape=30, keep_vol_size=True, patch_size=[64, 64, 64])
         #pred = pred.astype(np.float64)
         #print(seg.shape)
         #print(pred.shape)
