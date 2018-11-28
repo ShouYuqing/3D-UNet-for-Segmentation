@@ -82,9 +82,9 @@ model = un.unet(label_num=label_num + 1)
 
 # count the step
 cnt = 1
-for i in range(0, 19*3):
+for i in range(0, 5*1000):
     #rand_num = random.randint(0, 18)
-    ii = i%19
+    ii = i%5
     X_vol = vol_list[ii]
     X_seg = seg_list[ii]
     for vol,arg in palib.patch_gen(X_vol[0, :, :, :, 0], patch_size=[64, 64, 64], stride=32, nargout=0):
