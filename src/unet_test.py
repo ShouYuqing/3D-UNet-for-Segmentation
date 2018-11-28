@@ -103,9 +103,9 @@ for i in range(0, 1):
         #         vox_weights=None,
         #         crop_indices=None,
         #         area_reg=0.1).dice(seg,pred)
-        dice_score = losses.dice_coef(seg,pred)
+        dice_score = losses.dice_coef(seg,pred).eval()
         sum_dice = sum_dice + dice_score
-        print(dice_score)
+        print(dice_score.eval())
         #vals, _ = dice(pred, seg, nargout=2)
         #sum_dice = sum_dice + np.mean(vals)
         #print(np.mean(vals), np.std(vals))
