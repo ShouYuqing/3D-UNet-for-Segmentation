@@ -99,7 +99,7 @@ for i in range(0, 1):
         #         vox_weights=None,
         #         crop_indices=None,
         #         area_reg=0.1).dice(seg,pred)
-        dice_score = dice_coef(seg,pred)
+        dice_score = losses.dice_coef(seg,pred)
         sum_dice = sum_dice + dice_score
         print(dice_score)
         #vals, _ = dice(pred, seg, nargout=2)
