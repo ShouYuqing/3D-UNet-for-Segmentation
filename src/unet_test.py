@@ -37,7 +37,7 @@ import losses
 
 # read model
 label_num = 30
-test_iter = 50
+test_iter = 1000
 m_dir = '/home/ys895/unet/iter' + str(test_iter) + '.h5'
 model = un.unet(label_num=label_num)
 model.load_weights(m_dir)
