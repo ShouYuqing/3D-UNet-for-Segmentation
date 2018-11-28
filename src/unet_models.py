@@ -73,7 +73,8 @@ def unet(label_num=1, pretrained_weights=None):
 
     model = Model(inputs=inputs, outputs=convol)
     #model.compile(optimizer=Adam(lr=1e-4), loss=dice_coef_loss, metrics=[dice_coef])
-    model.compile(optimizer=Adam(lr=1e-4), loss=dice_coef_loss, metrics=[dice_coef])
+    #model.compile(optimizer=Adam(lr=1e-4), loss=dice_coef_loss, metrics=[dice_coef])
+    model.compile(optimizer=Adam(lr=1e-4), loss='categorical_crossentropy', metrics=[dice_coef])
     #model.compile(optimizer=Adam(lr=1e-4), loss='categorical_crossentropy', metrics=['accuracy'])
 
     # model.summary()
