@@ -92,7 +92,7 @@ for i in range(0, 1):
         dice_score = metrics.Dice(nb_labels = 30,
                  weights=None,
                  input_type='prob',
-                 dice_type='hard',
+                 dice_type='soft',
                  approx_hard_max=True,
                  vox_weights=None,
                  crop_indices=None,
