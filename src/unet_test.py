@@ -87,8 +87,10 @@ for i in range(0, 1):
         # seg = seg.reshape((1,)+ seg.shape +(1,))
         # adjust data
         vol = np.reshape(vol, (1,) + vol.shape + (1,))
+        vol = float(vol)
         pred = model.predict(vol)
-        pred = metrics._label_to_one_hot(np.argmax(pred, axis=-1), 30)
+        pred = metrics._label_to_one_hot(K.argmax(pred, axis=-1), 30)
+        pred = float(pred)
         #print(seg.shape)
         #print(pred.shape)
         #dice_score = metrics.Dice(nb_labels = 30,
