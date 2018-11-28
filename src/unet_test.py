@@ -33,6 +33,7 @@ import neuron.metrics as metrics
 import datagenerators
 import unet_models as un
 from medipy.metrics import dice
+import losses
 
 # read model
 label_num = 30
@@ -90,14 +91,15 @@ for i in range(0, 1):
         pred = metrics._label_to_one_hot(K.argmax(pred, axis=-1), 30)
         #print(seg.shape)
         #print(pred.shape)
-        dice_score = metrics.Dice(nb_labels = 30,
-                 weights=None,
-                 input_type='prob',
-                 dice_type='hard',
-                 approx_hard_max=True,
-                 vox_weights=None,
-                 crop_indices=None,
-                 area_reg=0.1).dice(seg,pred)
+        #dice_score = metrics.Dice(nb_labels = 30,
+        #         weights=None,
+        #         input_type='prob',
+        #         dice_type='hard',
+        #         approx_hard_max=True,
+        #         vox_weights=None,
+        #         crop_indices=None,
+        #         area_reg=0.1).dice(seg,pred)
+        dice_score = dice_coef(seg,pred)
         sum_dice = sum_dice + dice_score
         print(dice_score)
         #vals, _ = dice(pred, seg, nargout=2)
