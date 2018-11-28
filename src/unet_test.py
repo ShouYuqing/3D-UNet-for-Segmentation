@@ -62,7 +62,7 @@ for i in range(0,lenn):
 # test the data on the model
 # the size of test data is 5
 cnt = 1
-for i in range(0, 1):
+for i in range(0, 5):
     # rand_num = random.randint(0, 18)
     ii = i % 19
     X_vol = vol_list[ii]
