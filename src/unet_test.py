@@ -87,7 +87,7 @@ for i in range(0, 1):
         # seg = seg.reshape((1,)+ seg.shape +(1,))
         # adjust data
         vol = np.reshape(vol, (1,) + vol.shape + (1,))
-        seg = seg.astype(np.float64)
+        #seg = seg.astype(np.float64)
         pred = model.predict(vol)
         #pred = pred.astype(np.float64)
         pred = genera._categorical_prep(np.argmax(pred, axis=-1), nb_labels_reshape=30, keep_vol_size=True, patch_size=[64, 64, 64])
@@ -103,9 +103,17 @@ for i in range(0, 1):
         #         vox_weights=None,
         #         crop_indices=None,
         #         area_reg=0.1).dice(seg,pred)
-        dice_score = losses.dice_coef(seg,pred).eval()
+        #dice_score = losses.dice_coef(seg,pred).eval()
+        y_pred_op = pred
+        y_true_op = seg
+        sum_dim = 1
+        top = 2 * K.sum(y_true_op * y_pred_op, sum_dim)
+        bottom = K.sum(K.square(y_true_op), sum_dim) + K.sum(K.square(y_pred_op), sum_dim)
+        # make sure we have no 0s on the bottom. K.epsilon()
+        bottom = K.maximum(bottom, self.area_reg)
+        dice_score = top / bottom
         sum_dice = sum_dice + dice_score
-        print(dice_score.eval())
+        #print(dice_score.eval())
         #vals, _ = dice(pred, seg, nargout=2)
         #sum_dice = sum_dice + np.mean(vals)
         #print(np.mean(vals), np.std(vals))
