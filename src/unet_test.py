@@ -91,7 +91,7 @@ for i in range(0, 1):
         pred = model.predict(vol)
         #pred = pred.astype(np.float64)
         pred = genera._categorical_prep(np.argmax(pred, axis=-1), nb_labels_reshape=30, keep_vol_size=True, patch_size=[64, 64, 64])
-        pred = pred.astype(np.float64)
+        #pred = pred.astype(np.float64)
         #pred = pred.astype(np.float64)
         #print(seg.shape)
         #print(pred.shape)
@@ -104,18 +104,20 @@ for i in range(0, 1):
         #         crop_indices=None,
         #         area_reg=0.1).dice(seg,pred)
         #dice_score = losses.dice_coef(seg,pred).eval()
-        y_pred_op = pred
-        y_true_op = seg
-        sum_dim = 1
-        top = 2 * K.sum(y_true_op * y_pred_op, sum_dim)
-        bottom = K.sum(K.square(y_true_op), sum_dim) + K.sum(K.square(y_pred_op), sum_dim)
+        #y_pred_op = pred
+        #y_true_op = seg
+        #sum_dim = 1
+        #top = 2 * K.sum(y_true_op * y_pred_op, sum_dim)
+        #bottom = K.sum(K.square(y_true_op), sum_dim) + K.sum(K.square(y_pred_op), sum_dim)
         # make sure we have no 0s on the bottom. K.epsilon()
-        bottom = K.maximum(bottom, self.area_reg)
-        dice_score = top / bottom
-        sum_dice = sum_dice + dice_score
+        #bottom = K.maximum(bottom, self.area_reg)
+        #dice_score = top / bottom
+        #sum_dice = sum_dice + dice_score
         #print(dice_score.eval())
-        #vals, _ = dice(pred, seg, nargout=2)
+        vals, _ = dice(pred, seg, nargout=2)
         #sum_dice = sum_dice + np.mean(vals)
-        #print(np.mean(vals), np.std(vals))
+        dice_score = np.mean(vals)
+        print(np.mean(vals), np.std(vals))
+        sum_dice = sum_dice + dice_score
 #
 print(sum_dice/cnt2)
