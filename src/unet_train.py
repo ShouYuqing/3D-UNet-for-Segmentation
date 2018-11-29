@@ -49,7 +49,7 @@ history = LossHistory()
 A = []
 
 # dir
-m_dir='/home/ys895/unet/'
+m_dir='/home/ys895/unet2/'
 
 
 # read train data
