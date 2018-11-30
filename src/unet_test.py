@@ -59,12 +59,16 @@ for i in range(0,lenn):
     vol_list.append(X_vol)
     seg_list.append(X_seg)
 
+# outcome seg
+f_seg = np.zeros((1,64,64,64,30))
+
+
 # test the data on the model
 # the size of test data is 5
 cnt = 1
 for i in range(0, 5):
     # rand_num = random.randint(0, 18)
-    ii = i % 19
+    ii = i
     X_vol = vol_list[ii]
     X_seg = seg_list[ii]
 
@@ -75,6 +79,7 @@ for i in range(0, 5):
 
         cnt2 = cnt2 + 1
 
+        print(arg)
         arg_arr = np.array(arg)
         # get segmentation data
         seg = X_seg[0, arg_arr[0], arg_arr[1], arg_arr[2], 0]
@@ -91,6 +96,7 @@ for i in range(0, 5):
         pred = model.predict(vol)
         #pred = pred.astype(np.float64)
         pred = genera._categorical_prep(np.argmax(pred, axis=-1), nb_labels_reshape=30, keep_vol_size=True, patch_size=[64, 64, 64])
+        f_seg[0, arg_arr[0], arg_arr[1], arg_arr[2], 0] = pred
         #pred = pred.astype(np.float64)
         #pred = pred.astype(np.float64)
         #print(seg.shape)
