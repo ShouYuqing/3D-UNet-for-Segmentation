@@ -127,3 +127,4 @@ for i in range(0, 5):
         sum_dice = sum_dice + dice_score
 #
 print(sum_dice/cnt2)
+print(np.mean(dice(f_seg,seg,argout = 1)))
