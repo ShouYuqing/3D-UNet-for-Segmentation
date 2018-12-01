@@ -96,7 +96,10 @@ for i in range(0, 5):
         pred = model.predict(vol)
         #pred = pred.astype(np.float64)
         pred = genera._categorical_prep(np.argmax(pred, axis=-1), nb_labels_reshape=30, keep_vol_size=True, patch_size=[64, 64, 64])
-        f_seg[0, arg_arr[0], arg_arr[1], arg_arr[2], 0] = pred
+        print(arg_arr[0])
+        print(arg_arr[1])
+        print(arg_arr[2])
+        f_seg[0, arg_arr[0], arg_arr[1], arg_arr[2], :] = pred
         #pred = pred.astype(np.float64)
         #pred = pred.astype(np.float64)
         #print(seg.shape)
